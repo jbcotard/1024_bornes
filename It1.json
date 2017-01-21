@@ -1,44 +1,46 @@
-{"nom": "Le Mans", "latitude": "48.00367", "longitude": "0.19788"}
+{"nom":"Le Mans", "latitude":48.00367, "longitude":0.19788}
 
-{"nom": "Ecommoy", "latitude": "47.8231", "longitude": "0.2875"}
+{"nom":"Ecommoy", "latitude":47.8231, "longitude":0.2875}
 
-{"nom": "Château du Loir", "latitude": "47.6996", "longitude": "0.4321"}
+{"nom":"Château du Loir", "latitude":47.6996, "longitude":0.4321}
 
-{"nom": "Neuillé Pont Pierre", "latitude": "47.5468", "longitude": "0.5537"}
+{"nom":"Neuillé Pont Pierre", "latitude":47.5468, "longitude":0.5537}
 
-{"nom": "Tours", "latitude": "47.3943", "longitude": "0.6951"}
+{"nom":"Tours", "latitude":47.3943, "longitude":0.6951}
 
-{"nom": "Chinon", "latitude": "47.1692", "longitude": "0.2433"}
+{"nom":"Chinon", "latitude":47.1692, "longitude":0.2433}
 
-{"nom": "Marigny-Marmande", "latitude": "46.9771", "longitude": "0.4809"}
+{"nom":"Marigny-Marmande", "latitude":46.9771, "longitude":0.4809}
 
-{"nom": "", "latitude": "", "longitude": ""}
-Châtellerault 46.8148, 0.5584
+{"nom":"Châtellerault", "latitude":46.8148, "longitude":0.5584}
 
-Poitiers 46.5846, 0.3714
+{"nom":"Poitiers", "latitude":46.5846 , "longitude":0.3714} 
 
-Verrières 46.4019, 0.5979
+{"nom":"Verrières", "latitude":46.4019, "longitude":0.5979}
 
-Bussière Poitevine 46.2402, 0.8962
+{"nom":"Bussière Poitevine", "latitude": 46.2402, "longitude":0.8962}
+ 
+{"nom":"Bellac", "latitude":46.1014, "longitude":1.0326}
 
-Bellac 46.1014, 1.0326
+{"nom":"Guéret", "latitude":46.1587, "longitude":1.8705}
 
-Guéret 46.1587, 1.8705
+{"nom":"Bourganeuf", "latitude":45.9473, "longitude":1.7467}
 
-Bourganeuf 45.9473, 1.7467
+{"nom":"Bussière Poitevine", "latitude":46.2402 , "longitude":0.8962}
 
-Limoges
-45.85, 1.25
-Vicq-sur-Breuilh
-45.6461, 1.3814
-Uzerche
-45.425556, 1.564167
-Brive-la-Gaillarde
-45.158317, 1.532078
-Lachapelle-Auzac
-44.909167, 1.473333
-Ussel
-45.5489, 2.31
+{"nom":"Limoges", "latitude":45.85 , "longitude":1.25}
+
+{"nom":"Vicq-sur-Breuilh", "latitude":45.6461 , "longitude":1.3814} 
+
+{"nom":"Uzerche", "latitude":45.425556 , "longitude":1.564167} 
+
+{"nom":"Brive-la-Gaillarde", "latitude":45.158317 , "longitude":1.532078}
+
+{"nom":"Lachapelle-Auzac", "latitude":44.909167 , "longitude":1.473333}
+
+{"nom":"Ussel", "latitude":45.5489 , "longitude":2.31}
+
+, 
 Cahors
 44.448333, 1.441389
 Montpezat-de-Quercy
