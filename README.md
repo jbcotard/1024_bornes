@@ -1,6 +1,13 @@
 # 1024_bornes
 24h du code 2017
 
+format json cartes
+[
+{"type":"km", "valeur":"32"},
+{"type":"botte", "valeur":"Increvable"},
+...
+]
+
 Correspondance Carte du jeu - "What" dans Pages Jaunes
 Carte                            Nombre    "What"            Tirage (si applicable)
 Accident de la route             3         Hôpital
