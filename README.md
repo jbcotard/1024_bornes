@@ -45,32 +45,31 @@ $.search_results.listings[0].inscriptions[0].distance
 
 Itinéraire 1 (de référence) :
 Le Mans, CCI
+Ecommoy 47.8231, 0.2875
 
-Ecommoy
+Château du Loir 47.6996, 0.4321
 
-Château du Loir
+Neuillé Pont Pierre 47.5468, 0.5537
 
-Neuillé Pont Pierre
+Tours 47.3943, 0.6951
 
-Tours
+Chinon 47.1692, 0.2433
 
-Chinon
+Marigny-Marmande 46.9771, 0.4809
 
-Marigny-Marmande
+Châtellerault 46.8148, 0.5584
 
-Châtellerault
+Poitiers 46.5846, 0.3714
 
-Poitiers
+Verrières 46.4019, 0.5979
 
-Verrières
+Bussière Poitevine 46.2402, 0.8962
 
-Bussière Poitevine
+Bellac 46.1014, 1.0326
 
-Bellac
+Guéret 46.1587, 1.8705
 
-Guéret
-
-Bourganeuf
+Bourganeuf 45.9473, 1.7467
 
 Limoges
 45.85, 1.25
