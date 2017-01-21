@@ -73,40 +73,40 @@ Guéret
 Bourganeuf
 
 Limoges
-
+45.85, 1.25
 Vicq-sur-Breuilh
-
+45.6461, 1.3814
 Uzerche
-
+45.425556, 1.564167
 Brive-la-Gaillarde
-
+45.158317, 1.532078
 Lachapelle-Auzac
-
+44.909167, 1.473333
 Ussel
-
+45.5489, 2.31
 Cahors
-
+44.448333, 1.441389
 Montpezat-de-Quercy
-
+44.239167, 1.477222
 Montauban
-
+44.018056, 1.355833
 Grenade
-
+43.772222, 1.293611
 Toulouse
-
+43.604482, 1.443962
 Baziège
-
+43.4554, 1.616
 Castelnaudary
-
+43.319167, 1.954444
 Carassonne
-
+43.21306, 2.352028
 Fabrezan
-
+43.136389, 2.697778
 Saint-Jean-de-Barrou
-
+42.9583, 2.8406
 Perpignan
-
+42.698611, 2.895556
 Le Boulou
-
+42.524722, 2.830833
 Banyuls-sur-Mer
-
+42.483056, 3.128056
