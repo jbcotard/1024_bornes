@@ -24,3 +24,21 @@ Prioritaire                      1         DDE   
 200 kms (hirondelle)             4         Bar               (4/46)
 Total                          106           
 
+API Pages Jaunes :
+In : appel REST
+https://api.apipagesjaunes.fr/pros/find?
+what=plombier&
+where=rennes&
+app_id=d140a6f6&
+app_key=26452728b034374bccb462e880bfb0e5&
+return_urls=false
+
+
+https://api.apipagesjaunes.fr/pros/find?what=cci&where=le%20mans&app_id=d140a6f6&app_key=26452728b034374bccb462e880bfb0e5&return_urls=false&proximity=true&max=6&page=1
+ 
+
+Out : retourne JSON
+$.search_results.listings[0].merchant_name
+$.search_results.listings[0].inscriptions[0].latitude
+$.search_results.listings[0].inscriptions[0].latitude
+$.search_results.listings[0].inscriptions[0].distance
