@@ -42,3 +42,71 @@ $.search_results.listings[0].merchant_name
 $.search_results.listings[0].inscriptions[0].latitude
 $.search_results.listings[0].inscriptions[0].latitude
 $.search_results.listings[0].inscriptions[0].distance
+
+Itinéraire 1 (de référence) :
+Le Mans, CCI
+
+Ecommoy
+
+Château du Loir
+
+Neuillé Pont Pierre
+
+Tours
+
+Chinon
+
+Marigny-Marmande
+
+Châtellerault
+
+Poitiers
+
+Verrières
+
+Bussière Poitevine
+
+Bellac
+
+Guéret
+
+Bourganeuf
+
+Limoges
+
+Vicq-sur-Breuilh
+
+Uzerche
+
+Brive-la-Gaillarde
+
+Lachapelle-Auzac
+
+Ussel
+
+Cahors
+
+Montpezat-de-Quercy
+
+Montauban
+
+Grenade
+
+Toulouse
+
+Baziège
+
+Castelnaudary
+
+Carassonne
+
+Fabrezan
+
+Saint-Jean-de-Barrou
+
+Perpignan
+
+Le Boulou
+
+Banyuls-sur-Mer
+
