@@ -50,7 +50,7 @@ public class PartieRoute {
 
         // si la partie n'est pas demarrée et si le nombre de joueur est > 2
         // la partie démarre
-        if (!partie.isEnCours() && partie.getListeJoueurs().size() > 2) {
+        if (!partie.isEnCours() && partie.getListeJoueurs().size() > 0) {
             partie.getListeJoueurs().forEach(joueur -> joueur.setEtat(EtatJoueur.inactif));
             partie.start();
         }
@@ -65,8 +65,32 @@ public class PartieRoute {
     public Joueur getJoueur(Request request, Response response) {
 
         String jid = request.params("jid");
-        return MegaBorne.INSTANCE.getListeJoueur().stream().collect(HashMap<String, Joueur>::new, (m, c) -> m.put(c.getId(), c),
+        return MegaBorne.INSTANCE.getPartie().getListeJoueurs().stream().collect(HashMap<String, Joueur>::new, (m, c) -> m.put(c.getId(), c),
                 (m, u) -> {
                 }).get(jid);
+    }
+
+    public String resetPartie(Request request, Response response) {
+        MegaBorne.INSTANCE.setPartie(null);
+        MegaBorne.INSTANCE.setListeJoueur(null);
+        return "reset";
+    }
+
+    public int processActionJoueur(Request request, Response response) {
+
+        // input carte + joueur + adversaire + defausse
+        String jid = request.params("jid");
+
+        String jidAdversaire = request.params("jidAdversaire");
+        String idCarte = request.params("idCarte");
+        boolean defausse = Boolean.valueOf(request.params("defausse"));
+
+        int resultat = MegaBorne.INSTANCE.getPartie().processActionJoueur(jid,idCarte,defausse,jidAdversaire);
+
+        if (resultat == 0) {
+            MegaBorne.INSTANCE.getPartie().joueurSuivant();
+        }
+
+        return resultat;
     }
 }

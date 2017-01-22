@@ -19,11 +19,13 @@ public class Partie {
     private EtatPartie etat;
     private JeuCarte jeuCarte;
     private Circuit circuit;
+    private boolean joueurPrecedentAyantJoue;
 
 
     public Partie() {
         listeJoueurs = new ArrayList<Joueur>();
         etat = EtatPartie.enAttenteJoueur;
+        joueurPrecedentAyantJoue = false;
     }
 
     public void addJoueur(Joueur joueur) {
@@ -35,6 +37,14 @@ public class Partie {
 
     }
 
+    public boolean isJoueurPrecedentAyantJoue() {
+        return joueurPrecedentAyantJoue;
+    }
+
+    public void setJoueurPrecedentAyantJoue(boolean joueurPrecedentAyantJoue) {
+        this.joueurPrecedentAyantJoue = joueurPrecedentAyantJoue;
+    }
+
     public void start() {
 
         // changement etat partie
@@ -44,6 +54,7 @@ public class Partie {
         // on prend 6 cartes au hasard qui sont disponible
         // on les met dans la main du joueur
         // on les met en indispo dans la pioche
+
         listeJoueurs.stream().forEach((Joueur j) -> {
             int nbCartesDistribues = 1;
             while (nbCartesDistribues != 6) {
@@ -59,6 +70,7 @@ public class Partie {
 
             }
         });
+
 
         // le joueur 1 commence
         listeJoueurs.get(0).setEtat(EtatJoueur.actif);
@@ -84,6 +96,70 @@ public class Partie {
         if (indexJoueurCourant > listeJoueurs.size()) {
             indexJoueurCourant = 0;
         }
+
+        joueurCourant = listeJoueurs.get(indexJoueurCourant);
+
+        List<Commerce> listeCommercesJoueurCourant = joueurCourant.getPosition().getListeCommerces();
+        List<Commerce> listeCommercesFiltres = new ArrayList<>();
+        for (Commerce commerce:
+        listeCommercesJoueurCourant) {
+            if (commerce.getDistance() < 10000) {
+                listeCommercesFiltres.add(commerce);
+            }
+        }
+        List<Commerce> listeCommercesAvecCartes = rechercherExistenceCartesDansCommerce(listeCommercesFiltres);
+
+        if(listeCommercesAvecCartes == null || listeCommercesAvecCartes.size() == 0) {
+            listeCommercesAvecCartes = rechercherExistenceCartesDansCommerce(listeCommercesJoueurCourant);
+        }
+
+        joueurCourant.getPosition().setListeCommerces(listeCommercesAvecCartes);
+    }
+
+    private List<Commerce> rechercherExistenceCartesDansCommerce(List<Commerce> listeCommercesFiltres) {
+        List<Commerce> listeResultat = new ArrayList<Commerce>();
+        for (Commerce commerce:listeCommercesFiltres) {
+           if ("Hopital".equals(commerce.getType()) && jeuCarte.isCartePioche("Accident de la route")) {
+               listeResultat.add(commerce);
+           } else if ("Gare".equals(commerce.getType()) && jeuCarte.isCartePioche("Panne d'essence")) {
+               listeResultat.add(commerce);
+           }else if ("Gendarmerie".equals(commerce.getType()) && jeuCarte.isCartePioche("Crevaison")) {
+               listeResultat.add(commerce);
+           }else if ("Police".equals(commerce.getType()) && jeuCarte.isCartePioche("Limitation de vitesse")) {
+               listeResultat.add(commerce);
+           }else if ("Prefecturee".equals(commerce.getType()) && jeuCarte.isCartePioche("Feu rouge")) {
+               listeResultat.add(commerce);
+           }else if ("Carrossier".equals(commerce.getType()) &&
+                   (jeuCarte.isCartePioche("Reparation") ||
+                           (jeuCarte.isCartePioche("As du volant")))) {
+                listeResultat.add(commerce);
+
+           } else if ("Station essence".equals(commerce.getType()) &&
+                    (jeuCarte.isCartePioche("Essence") ||
+                            (jeuCarte.isCartePioche("Camion-citerne")))) {
+                listeResultat.add(commerce);
+            }else if ("Garagiste".equals(commerce.getType()) &&
+                    (jeuCarte.isCartePioche("Roue de secours") ||
+                            (jeuCarte.isCartePioche("Increvable")))) {
+                listeResultat.add(commerce);
+            }else if ("DDE".equals(commerce.getType()) &&
+                    (jeuCarte.isCartePioche("Fin de limitation de vitesse") ||
+                            (jeuCarte.isCartePioche("Prioritaire")))) {
+                listeResultat.add(commerce);
+            }
+                else if ("Mairie".equals(commerce.getType()) && jeuCarte.isCartePioche("Feu vert")) {
+               listeResultat.add(commerce);
+           }else if ("Bar".equals(commerce.getType()) &&
+                    (jeuCarte.isCartePioche("32") ||
+                            (jeuCarte.isCartePioche("64")) ||
+                            (jeuCarte.isCartePioche("96")) ||
+                            (jeuCarte.isCartePioche("128")) ||
+                            (jeuCarte.isCartePioche("256")))) {
+                listeResultat.add(commerce);
+            }
+
+        }
+        return listeResultat;
     }
 
     public void actionJoueur(Joueur joueurCourant, Carte carte) {
@@ -155,5 +231,253 @@ etat = EtatPartie.termine;
 
     public Circuit getCircuit() {
         return circuit;
+    }
+
+    public int processActionJoueur(String jid, String idCarte, boolean defausse, String jidAdversaire) {
+        Joueur joueur = listeJoueurs.stream().collect(HashMap<String, Joueur>::new, (m, c) -> m.put(c.getId(), c),
+                (m, u) -> {
+                }).get(jid);
+        Joueur joueurAdversaire = listeJoueurs.stream().collect(HashMap<String, Joueur>::new, (m, c) -> m.put(c.getId(), c),
+                (m, u) -> {
+                }).get(jidAdversaire);
+        Carte carte = jeuCarte.getListeCartes().stream().collect(HashMap<String, Carte>::new, (m,c) -> m.put(c.getIdCarte(),c),
+                (m, u) -> {
+                }).get(idCarte);
+        int resultat = 0;
+
+        if (defausse) {
+            joueur.delCartesEnMain(carte);
+            jeuCarte.ajoutPioche(carte);
+
+        } else {
+            switch(carte.getValeur()) {
+                case "Accident de la route" :
+
+                    if (joueurAdversaire.isCarteExposee("As du volant") != null||
+                            joueurAdversaire.isCarteExposee("Accident de la route") != null) {
+                        resultat = 1;
+                    } else {
+                        Carte carteAdversaire = joueurAdversaire.isCarteExposee("Feu vert");
+                        if (carteAdversaire != null) {
+                            jeuCarte.ajoutPioche(carteAdversaire);
+                            joueurAdversaire.delCartesExposees(carteAdversaire);
+
+                        }
+                        joueurAdversaire.addCartesExposees(carte);
+                    }
+                    break;
+                case "Panne d’essence" :
+
+                    if (joueurAdversaire.isCarteExposee("Camion-citerne") != null||
+                            joueurAdversaire.isCarteExposee("Panne d’essence") != null) {
+                        resultat = 1;
+                    } else {
+                        Carte carteAdversaire = joueurAdversaire.isCarteExposee("Feu vert");
+                        if (carteAdversaire != null) {
+                            jeuCarte.ajoutPioche(carteAdversaire);
+                            joueurAdversaire.delCartesExposees(carteAdversaire);
+
+                        }
+                        joueurAdversaire.addCartesExposees(carte);
+                    }
+                    break;
+                case "Crevaison" :
+
+                    if (joueurAdversaire.isCarteExposee("Increvable") != null||
+                            joueurAdversaire.isCarteExposee("Crevaison") != null) {
+                        resultat = 1;
+                    } else {
+                        Carte carteAdversaire = joueurAdversaire.isCarteExposee("Feu vert");
+                        if (carteAdversaire != null) {
+                            jeuCarte.ajoutPioche(carteAdversaire);
+                            joueurAdversaire.delCartesExposees(carteAdversaire);
+
+                        }
+                        joueurAdversaire.addCartesExposees(carte);
+                    }
+                    break;
+                case "Limitation de vitesse" :
+
+                    if (joueurAdversaire.isCarteExposee("Prioritaire") != null||
+                            joueurAdversaire.isCarteExposee("Limitation de vitesse") != null) {
+                        resultat = 1;
+                    } else {
+
+                        joueurAdversaire.addCartesExposees(carte);
+                    }
+                    break;
+                case "Feu rouge" :
+
+                    if (joueurAdversaire.isCarteExposee("Prioritaire") != null||
+                            joueurAdversaire.isCarteExposee("Feu rouge") != null) {
+                        resultat = 1;
+                    } else {
+                        Carte carteAdversaire = joueurAdversaire.isCarteExposee("Feu vert");
+                        if (carteAdversaire != null) {
+                            jeuCarte.ajoutPioche(carteAdversaire);
+                            joueurAdversaire.delCartesExposees(carteAdversaire);
+
+                        }
+                        joueurAdversaire.addCartesExposees(carte);
+                    }
+                    break;
+                case "Réparation" :
+
+                    Carte carteAccident =joueur.isCarteExposee("Accident de la route");
+                    if (carteAccident == null) {
+                        resultat = 1;
+                    } else {
+                        joueur.delCartesExposees(carteAccident);
+                        jeuCarte.ajoutPioche(carteAccident);
+                        joueur.delCartesEnMain(carte);
+                        jeuCarte.ajoutPioche(carte);
+
+                    }
+                    break;
+                case "Essence" :
+
+                    Carte cartePanneEssence =joueur.isCarteExposee("Panne d’essence");
+                    if (cartePanneEssence == null) {
+                        resultat = 1;
+                    } else {
+                        joueur.delCartesExposees(cartePanneEssence);
+                        jeuCarte.ajoutPioche(cartePanneEssence);
+                        joueur.delCartesEnMain(carte);
+                        jeuCarte.ajoutPioche(carte);
+
+                    }
+                    break;
+                case "Roue de secours" :
+
+                    Carte carteCrevaison =joueur.isCarteExposee("Crevaison");
+                    if (carteCrevaison == null) {
+                        resultat = 1;
+                    } else {
+                        joueur.delCartesExposees(carteCrevaison);
+                        jeuCarte.ajoutPioche(carteCrevaison);
+                        joueur.delCartesEnMain(carte);
+                        jeuCarte.ajoutPioche(carte);
+
+                    }
+                    break;
+                case "Fin de limitation de vitesse" :
+
+                    Carte carteLimitation =joueur.isCarteExposee("Limitation de vitesse");
+                    if (carteLimitation == null) {
+                        resultat = 1;
+                    } else {
+                        joueur.delCartesExposees(carteLimitation);
+                        jeuCarte.ajoutPioche(carteLimitation);
+                        joueur.delCartesEnMain(carte);
+                        jeuCarte.ajoutPioche(carte);
+
+                    }
+                    break;
+                case "Feu vert" :
+
+                    if (joueur.isCarteExposee("Feu vert") == null ||
+                            joueur.isCarteExposee("Prioritaire") == null ||
+                            joueur.isCarteExposee("Accident de la route") == null ||
+                            joueur.isCarteExposee("Crevaison") == null ||
+                            joueur.isCarteExposee("Panne d'essence") == null) {
+                        resultat = 1;
+                    } else {
+                        joueur.addCartesExposees(carte);
+                        joueur.delCartesEnMain(carte);
+
+                    }
+                    break;
+                case "As du volant" :
+                    Carte carteAccident2 = joueur.isCarteExposee("Accident");
+                    if ( carteAccident2 != null) {
+                        joueur.delCartesExposees(carteAccident2);
+                        jeuCarte.ajoutPioche(carteAccident2);
+                    }
+                    joueur.addCartesExposees(carte);
+                    joueur.delCartesEnMain(carte);
+                    break;
+                case "Camion-citerne" :
+                    Carte cartePanneEssence2 = joueur.isCarteExposee("Panne d’essence");
+                    if ( cartePanneEssence2 != null) {
+                        joueur.delCartesExposees(cartePanneEssence2);
+                        jeuCarte.ajoutPioche(cartePanneEssence2);
+                    }
+                    joueur.addCartesExposees(carte);
+                    joueur.delCartesEnMain(carte);
+                    break;
+                case "Increvable" :
+                    Carte carteCrevaison2 = joueur.isCarteExposee("Crevaison");
+                    if ( carteCrevaison2 != null) {
+                        joueur.delCartesExposees(carteCrevaison2);
+                        jeuCarte.ajoutPioche(carteCrevaison2);
+                    }
+                    joueur.addCartesExposees(carte);
+                    joueur.delCartesEnMain(carte);
+                    break;
+                case "Prioritaire" :
+                    Carte carteLimitationVitesse2 = joueur.isCarteExposee("Limitation de vitesse");
+                    if ( carteLimitationVitesse2 != null) {
+                        joueur.delCartesExposees(carteLimitationVitesse2);
+                        jeuCarte.ajoutPioche(carteLimitationVitesse2);
+                    }
+                    Carte carteFeuRouge = joueur.isCarteExposee("Feu rouge");
+                    if ( carteFeuRouge != null) {
+                        joueur.delCartesExposees(carteFeuRouge);
+                        jeuCarte.ajoutPioche(carteFeuRouge);
+                    }
+                    Carte carteFeuVert = joueur.isCarteExposee("Feu vert");
+                    if ( carteFeuVert != null) {
+                        joueur.delCartesExposees(carteFeuVert);
+                        jeuCarte.ajoutPioche(carteFeuVert);
+                    }
+                    joueur.addCartesExposees(carte);
+                    joueur.delCartesEnMain(carte);
+                    break;
+                case "32" :
+                case "64" :
+                case "96" :
+                case "128" :
+                case "256" :
+                    if (joueur.isCarteExposee("Feu vert") == null &&
+                            joueur.isCarteExposee("Prioritaire") == null ) {
+                        resultat = 1;
+                    }
+                    resultat = calculAvancement(joueur,carte.getValeur());
+                    if (resultat == 0) {
+                        joueur.delCartesEnMain(carte);
+                        jeuCarte.ajoutPioche(carte);
+                    }
+                    break;
+
+            }
+        }
+
+        return resultat;
+    }
+
+    private int calculAvancement(Joueur joueur, String valeur) {
+        int nbBornes = Integer.valueOf(valeur);
+        int resultat = 0;
+        if (joueur.getNbBornesParcourues() + nbBornes > 1024) {
+             resultat = 1;
+        }
+        if (joueur.isCarteExposee("Limitation de vitesse") != null && nbBornes > 64) {
+            resultat = 1;
+        }
+        joueur.setNbBornesParcourues(joueur.getNbBornesParcourues() + nbBornes);
+        int indexPosition = joueur.getNbBornesParcourues() / 32;
+        joueur.setPosition(circuit.getListePositions().get(indexPosition));
+        if (joueur.getNbBornesParcourues() == 1024) {
+            joueur.setEtat(EtatJoueur.winner);
+            for (Joueur joueur2 :listeJoueurs
+                 ) {
+                if (joueur2 != joueur) {
+                    joueur2.setEtat(EtatJoueur.looser);
+                }
+            }
+            etat = EtatPartie.termine;
+
+        }
+        return resultat;
     }
 }

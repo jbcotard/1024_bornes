@@ -1,6 +1,7 @@
 package org.vqhcode.megabornes.model;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,4 +29,22 @@ public class JeuCarte {
         this.listeCartes = listeCartes;
     }
 
+    public void ajoutPioche(Carte carte) {
+        listeCartes.stream().collect(HashMap<String, Carte>::new, (m, c) -> m.put(c.getIdCarte(),c),
+                (m, u) -> {
+                }).get(carte.getIdCarte()).majEtat(EtatCarte.dansLaPioche);
+    }
+
+    public boolean isCartePioche(String s) {
+        boolean carteTrouve= false ;
+
+        for (Carte carte:
+                listeCartes) {
+            if (carte.getValeur().equals(s)) {
+                carteTrouve = true;
+            }
+        }
+
+        return carteTrouve;
+    }
 }

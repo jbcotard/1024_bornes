@@ -9,9 +9,26 @@ public class Carte {
     private EtatCarte etat;
     private String valeur;
     private TypeCarte typeCarte;
+    private String idCarte;
 
     public Carte() {
         etat = EtatCarte.dansLaPioche;
+    }
+
+    public EtatCarte getEtat() {
+        return etat;
+    }
+
+    public void setEtat(EtatCarte etat) {
+        this.etat = etat;
+    }
+
+    public String getIdCarte() {
+        return idCarte;
+    }
+
+    public void setIdCarte(String idCarte) {
+        this.idCarte = idCarte;
     }
 
     public void majEtat(EtatCarte etatCarte) {
