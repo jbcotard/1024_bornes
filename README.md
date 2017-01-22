@@ -1,6 +1,9 @@
 # 1024_bornes
 24h du code 2017
 
+Exemple appel via coord. API PJ :
+https://api.apipagesjaunes.fr/pros/find?what=cci&where=cZ-0.197252,48.003722&app_id=d140a6f6&app_key=26452728b034374bccb462e880bfb0e5&return_urls=false&proximity=true&max=15&page=1
+
 format json cartes
 [
 {"type":"km", "valeur":"32"},
