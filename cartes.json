@@ -1,0 +1,133 @@
+/**
+Correspondance Carte du jeu - "What" dans Pages Jaunes
+Carte                            Nombre    "What"            Tirage (si applicable)
+#Accident de la route             3         Hôpital
+#Panne d’essence                  3         Gare
+#Crevaison                        3         Gendarmerie
+#Limitation de vitesse            4         Police
+#Feu rouge                        5         Préfecture
+#Réparations                      6         Carrossier        (6/7)
+#Essence                          6         Station Essence   (6/7)
+#Roue de secours                  6         Garagiste         (6/7)
+#Fin de limitation de vitesse     6         DDE               (6/7)
+#Feu vert                        14         Mairie
+#As du volant                     1         Carrossier         (1/7)
+#Camion-Citerne                   1         Station Essence   (1/7)
+#Increvable                       1         Garagiste         (1/7)
+#Prioritaire                      1         DDE               (1/7)
+#32 kms (escargot)               10         Bar               (10/46)
+#64 kms (canard)                 10         Bar               (10/46)
+#96 kms (papillon)               10         Bar               (10/46)
+#128 kms (lièvre)                12         Bar               (12/46)
+#256 kms (hirondelle)             4         Bar               (4/46)
+Total                          106           
+**/
+
+[
+{"type":"attaque", "valeur":"Feu rouge"},
+{"type":"attaque", "valeur":"Feu rouge"},
+{"type":"attaque", "valeur":"Feu rouge"},
+{"type":"attaque", "valeur":"Feu rouge"},
+{"type":"attaque", "valeur":"Feu rouge"},
+{"type":"attaque", "valeur":"Accident de la route"},
+{"type":"attaque", "valeur":"Accident de la route"},
+{"type":"attaque", "valeur":"Accident de la route"},
+{"type":"attaque", "valeur":"Panne d’essence"},
+{"type":"attaque", "valeur":"Panne d’essence"},
+{"type":"attaque", "valeur":"Panne d’essence"},
+{"type":"attaque", "valeur":"Crevaison"},
+{"type":"attaque", "valeur":"Crevaison"},
+{"type":"attaque", "valeur":"Crevaison"},
+{"type":"attaque", "valeur":"Limitation de vitesse"},
+{"type":"attaque", "valeur":"Limitation de vitesse"},
+{"type":"attaque", "valeur":"Limitation de vitesse"},
+{"type":"attaque", "valeur":"Limitation de vitesse"},
+{"type":"parade", "valeur":"Réparation"},
+{"type":"parade", "valeur":"Réparation"},
+{"type":"parade", "valeur":"Réparation"},
+{"type":"parade", "valeur":"Réparation"},
+{"type":"parade", "valeur":"Réparation"},
+{"type":"parade", "valeur":"Réparation"},
+{"type":"parade", "valeur":"Essence"},   
+{"type":"parade", "valeur":"Essence"},   
+{"type":"parade", "valeur":"Essence"},   
+{"type":"parade", "valeur":"Essence"},   
+{"type":"parade", "valeur":"Essence"},   
+{"type":"parade", "valeur":"Essence"},   
+{"type":"parade", "valeur":"Roue de secours"},   
+{"type":"parade", "valeur":"Roue de secours"},
+{"type":"parade", "valeur":"Roue de secours"},
+{"type":"parade", "valeur":"Roue de secours"},
+{"type":"parade", "valeur":"Roue de secours"},
+{"type":"parade", "valeur":"Roue de secours"},
+{"type":"parade", "valeur":"Fin de limitation de vitesse"},   
+{"type":"parade", "valeur":"Fin de limitation de vitesse"},   
+{"type":"parade", "valeur":"Fin de limitation de vitesse"},   
+{"type":"parade", "valeur":"Fin de limitation de vitesse"},   
+{"type":"parade", "valeur":"Fin de limitation de vitesse"},   
+{"type":"parade", "valeur":"Fin de limitation de vitesse"},   
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"parade", "valeur":"Feu vert"},
+{"type":"botte", "valeur":"As du volant"},   
+{"type":"botte", "valeur":"Camion-citerne"},
+{"type":"botte", "valeur":"Prioritaire"},
+{"type":"botte", "valeur":"Increvable"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"32"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"64"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"96"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"128"},
+{"type":"km", "valeur":"256"},
+{"type":"km", "valeur":"256"},
+{"type":"km", "valeur":"256"},
+{"type":"km", "valeur":"256"}
+]
