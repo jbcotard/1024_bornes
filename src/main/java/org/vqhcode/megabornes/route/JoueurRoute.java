@@ -41,6 +41,7 @@ public class JoueurRoute {
         List<Joueur> listeJoueurs = MegaBorne.INSTANCE.getListeJoueur();
         if (MegaBorne.INSTANCE.getListeJoueur() == null || MegaBorne.INSTANCE.getListeJoueur().size() == 0) {
             listeJoueurs = new ArrayList<Joueur>();
+            MegaBorne.INSTANCE.setListeJoueur(listeJoueurs);
         }
         if (!MegaBorne.INSTANCE.getListeJoueur().contains(joueur)) {
             listeJoueurs.add(joueur);

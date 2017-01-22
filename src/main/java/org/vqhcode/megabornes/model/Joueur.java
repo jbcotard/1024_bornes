@@ -1,5 +1,7 @@
 package org.vqhcode.megabornes.model;
 
+import org.vqhcode.megabornes.MegaBorne;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,21 +15,40 @@ public class Joueur {
     private String nom;
     private Position position;
     private List<Carte> listeCartesEnMain;
+    private List<Carte> listeCartesExposees;
+    private Carte derniereCarteJouee;
     private String id;
-    private int nbBornesParcourrues;
+    private int nbBornesParcourues;
 
     public Joueur(String i, String nom) {
         this.id = i;
         this.nom = nom;
-        this.nbBornesParcourrues = 0;
+        this.nbBornesParcourues = 0;
 
         // positionnement initial
-        this.position = new Position("Le Mans",48.00367,0.19788);
+        this.position = MegaBorne.INSTANCE.getListePosition().get(0);
 
         // etat courant
         this.etat = EtatJoueur.enAttente;
 
         listeCartesEnMain = new ArrayList<Carte>();
+        listeCartesExposees = new ArrayList<Carte>();
+    }
+
+    public Carte getDerniereCarteJouee() {
+        return derniereCarteJouee;
+    }
+
+    public void setDerniereCarteJouee(Carte derniereCarteJouee) {
+        this.derniereCarteJouee = derniereCarteJouee;
+    }
+
+    public List<Carte> getListeCartesExposees() {
+        return listeCartesExposees;
+    }
+
+    public void setListeCartesExposees(List<Carte> listeCartesExposees) {
+        this.listeCartesExposees = listeCartesExposees;
     }
 
     public EtatJoueur getEtat() {
@@ -76,18 +97,39 @@ public class Joueur {
     }
 
     public void addBornes(int valeur) {
-        this.nbBornesParcourrues = valeur;
+        this.nbBornesParcourues = valeur;
     }
 
 
-    public int getNbBornesParcourrues() {
-        return nbBornesParcourrues;
+    public int getNbBornesParcourues() {
+        return nbBornesParcourues;
     }
 
-    public void setNbBornesParcourrues(int nbBornesParcourrues) {
-        this.nbBornesParcourrues = nbBornesParcourrues;
+    public void setNbBornesParcourues(int nbBornesParcourrues) {
+        this.nbBornesParcourues = nbBornesParcourrues;
     }
     public String getNom() {
         return nom;
+    }
+
+    public Carte isCarteExposee(String s) {
+
+        Carte carteTrouve= null ;
+
+        for (Carte carte:
+        listeCartesExposees) {
+            if (carte.getValeur().equals(s)) {
+                carteTrouve = carte;
+            }
+        }
+        return carteTrouve;
+    }
+
+    public void delCartesExposees(Carte carte) {
+        listeCartesExposees.remove(carte);
+    }
+
+    public void addCartesExposees(Carte carte) {
+        listeCartesExposees.add(carte);
     }
 }
