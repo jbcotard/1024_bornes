@@ -445,6 +445,12 @@ function myCallback() {
                                 var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
                                 marker.id =  result[0].listeJoueurs[i].position.listeCommerces[j].type;
                                 marker.addTo(myMap);
+
+
+                                var lat = result[0].listeJoueurs[i].position.latitude;
+                                var longi = result[0].listeJoueurs[i].position.longitude;
+                                var newLatLng = new L.LatLng(lat, longi);
+                                user.setLatLng(newLatLng);
                             }
                         }
                     }
