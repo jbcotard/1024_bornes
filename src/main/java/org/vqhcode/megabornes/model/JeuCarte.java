@@ -47,12 +47,18 @@ public class JeuCarte {
     }
 
     public Carte getCarte(String s) {
+        System.out.println(s);
         Carte carteTrouve = null;
-        for (Carte carte:
-                listeCartes) {
+        boolean nonTrouve = false;
+        int compteur = 0;
+        while(!nonTrouve && compteur < listeCartes.size()){
+            Carte carte = listeCartes.get(compteur);
+            //System.out.println(carte.getValeur());
             if (carte.getValeur().equals(s)) {
                 carteTrouve = carte;
+                nonTrouve = true;
             }
+            compteur++;
         }
 
         return carteTrouve;
