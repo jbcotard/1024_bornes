@@ -50,7 +50,7 @@ function loadItineraire(localisation) {
 
 function loadCartesEnMains(listeJoueurs) {
 
-    var sidebar = document.getElementById('footer');
+    var sidebar = document.getElementById('cartesUser');
     removeAllItems(sidebar);
 
     for (i = 0; i <  listeJoueurs.length;i++) { 
@@ -58,11 +58,62 @@ function loadCartesEnMains(listeJoueurs) {
             var div = document.createElement("div"); 
             for (j = 0; j <  listeJoueurs[i].listeCartesEnMain.length;j++) {
                 var image = document.createElement("img");
-                // if (listeJoueurs[i].listeCartesEnMain[j].
-                image.src = "cartes/128Bornes.jpg";
-            // image.id = path;
-            //image.innerHTML = text;
-                
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Feu vert") {
+                    image.src = "cartes/FeuVert.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Feu rouge") {
+                    image.src = "cartes/FeuRouge.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "256") {
+                    image.src = "cartes/256Bornes.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "128") {
+                    image.src = "cartes/128Bornes.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "96") {
+                    image.src = "cartes/96Bornes.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "64") {
+                    image.src = "cartes/64Bornes.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "32") {
+                    image.src = "cartes/32Bornes.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Roue de secours") {
+                    image.src = "cartes/RouDeSecours.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Réparation") {
+                    image.src = "cartes/Reparations.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Fin de limitation de vitesse") {
+                    image.src = "cartes/FinLimitationVitesse.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Essence") {
+                    image.src = "cartes/Essence.jpg";
+                }
+
+                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Panne Essence") {
+                    image.src = "cartes/PanneEssence.jpg";
+                }
+
+                image.id = listeJoueurs[i].listeCartesEnMain[j].valeur;
+ 
+                // Event
+                image.addEventListener('click', function (e) {
+                    alert("Click" + e);
+                });
+
                 div.appendChild(image);
             }
             sidebar.appendChild(div);
@@ -131,7 +182,9 @@ function getJoueur() {
             // Typical action to be performed when the document is ready:
             try {
                 var jsText = xhttp.responseText;
-                userCurrent = jsText;
+                console.log(jsText);
+                userCurrent = jsText.replace("\"", "");
+                userCurrent = userCurrent.replace("\"", "");
                 user =  L.marker([48.00351,  0.19755]).addTo(myMap);
                 user.bindPopup("<b>" + userCurrent + "</b><br />").openPopup();
 
@@ -180,12 +233,12 @@ function reset() {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
             try {
-                var userCurrent = getJoueur();
+                getJoueur();
 
-                user =  L.marker([48.00351,  0.19755]).addTo(myMap);
-                user.bindPopup("<b>" + userCurrent + "</b><br />").openPopup();
+                // user =  L.marker([48.00351,  0.19755]).addTo(myMap);
+                // user.bindPopup("<b>" + userCurrent + "</b><br />").openPopup();
 
-                inscrireJoueur(userCurrent);
+                // inscrireJoueur(userCurrent);
             } catch (e) {
                 alert(e);
             }
@@ -202,8 +255,12 @@ getJoueur();
 
 getMarker();
 
+function nextMap() {
+    inscrireJoueur(userCurrent);
+}
+
 function refreshMap() {
-    myMap.remove();
+   /*  myMap.remove();
     myMap = new L.Mappy.Map("example-map-1", {
         clientId: 'dri_24hducode',
         center: [47.3943,  0.6951],
@@ -212,14 +269,43 @@ function refreshMap() {
     user = L.marker([47.3943, 0.7]).addTo(myMap);
     user.bindPopup("<b>User1</b><br />").openPopup();
 
-    loadItineraire();
+    loadItineraire(); */
+    reset();
 }
 
 function removeAllItems(list) {
     // remove all element in the list.
-	while (list.firstChild) {
+    while (list.firstChild) {
         list.removeChild(list.firstChild);
     }
+}
+
+
+// window.setInterval(myCallback, 1000);
+
+function myCallback() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            try {
+                var jsText = xhttp.responseText;
+                var result = JSON.parse(jsText);
+            } catch (e) {
+                alert(e);
+            }
+        }
+    };
+
+    xhttp.open('GET', 'http://192.168.1.24:4567/api/parties', true);
+    xhttp.send(null);
+}
+
+function affecterA() {
+
+}
+
+function play() {
 }
 
 // https://api.apipagesjaunes.fr/pros/find?what=cci&where=le%20mans&app_id=d140a6f6&app_key=26452728b034374bccb462e880bfb0e5&return_urls=false&proximity=true&max=6&page=1
