@@ -24,6 +24,7 @@ public class Partie {
         listeJoueurs = new ArrayList<Joueur>();
         etat = EtatPartie.enAttenteJoueur;
         joueurPrecedentAyantJoue = false;
+        indexJoueurCourant = 0;
     }
 
     public void addJoueur(Joueur joueur) {
@@ -55,7 +56,7 @@ public class Partie {
 
         listeJoueurs.stream().forEach((Joueur j) -> {
             int nbCartesDistribues = 1;
-            while (nbCartesDistribues != 6) {
+            while (nbCartesDistribues != 7) {
                 Random random = new Random();
                 int i1 = random.nextInt(106);
 
@@ -91,7 +92,7 @@ public class Partie {
 
     public void joueurSuivant() {
         indexJoueurCourant++;
-        if (indexJoueurCourant > listeJoueurs.size()) {
+        if (indexJoueurCourant >= listeJoueurs.size()) {
             indexJoueurCourant = 0;
         }
 
@@ -232,6 +233,9 @@ etat = EtatPartie.termine;
     }
 
     public int processActionJoueur(String jid, String idCarte, boolean defausse, String jidAdversaire) {
+
+        System.out.println("action " + jid + " " + idCarte + " " + defausse + " " + jidAdversaire);
+
         Joueur joueur = listeJoueurs.stream().collect(HashMap<String, Joueur>::new, (m, c) -> m.put(c.getId(), c),
                 (m, u) -> {
                 }).get(jid);
@@ -241,6 +245,10 @@ etat = EtatPartie.termine;
         Carte carte = jeuCarte.getListeCartes().stream().collect(HashMap<String, Carte>::new, (m,c) -> m.put(c.getIdCarte(),c),
                 (m, u) -> {
                 }).get(idCarte);
+
+        System.out.println(carte.getValeur() + " " + carte.getIdCarte()
+        + " " +carte.getEtat());
+
         int resultat = 0;
 
         if (defausse) {
@@ -481,6 +489,8 @@ etat = EtatPartie.termine;
 
     public Carte processPioche(String jid, String typeCommerce) {
 
+        System.out.println("pioche carte " + jid + " " + typeCommerce);
+
         Carte carte = null;
 
         switch(typeCommerce) {
@@ -499,12 +509,15 @@ etat = EtatPartie.termine;
             case "Mairie" :
                 carte = jeuCarte.getCarte("Feu vert");
                 break;
+            case "Gendarmerie" :
+                carte = jeuCarte.getCarte("Crevaison");
+                break;
             case "Carrossier" :
 
                 carte = jeuCarte.getCarteHasard(Arrays.asList("Reparation","As du volant"));
 
                 break;
-            case "Station essence" :
+            case "Station%20essence" :
 
                 carte = jeuCarte.getCarteHasard(Arrays.asList("Essence","Camion-citerne"));
                 break;
@@ -522,9 +535,12 @@ etat = EtatPartie.termine;
                 break;
         }
 
-        joueurCourant.addCartesEnMain(carte);
-        jeuCarte.supprimeDansPioche(carte);
+        if (carte != null) {
+            joueurCourant.addCartesEnMain(carte);
+            jeuCarte.supprimeDansPioche(carte);
+        }
 
+        System.out.println("carte piochee = " + carte);
         return carte;
     }
 }
