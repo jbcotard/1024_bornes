@@ -3,10 +3,8 @@ package org.vqhcode.megabornes.model;
 import org.vqhcode.megabornes.MegaBorne;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -479,5 +477,54 @@ etat = EtatPartie.termine;
 
         }
         return resultat;
+    }
+
+    public Carte processPioche(String jid, String typeCommerce) {
+
+        Carte carte = null;
+
+        switch(typeCommerce) {
+            case "Hopital" :
+                carte = jeuCarte.getCarte("Accident de la route");
+            break;
+            case "Gare" :
+                carte = jeuCarte.getCarte("Panne d'essence");
+                break;
+            case "Police" :
+                carte = jeuCarte.getCarte("Limitation de vitesse");
+                break;
+            case "Prefecture" :
+                carte = jeuCarte.getCarte("Feu rouge");
+                break;
+            case "Mairie" :
+                carte = jeuCarte.getCarte("Feu vert");
+                break;
+            case "Carrossier" :
+
+                carte = jeuCarte.getCarteHasard(Arrays.asList("Reparation","As du volant"));
+
+                break;
+            case "Station essence" :
+
+                carte = jeuCarte.getCarteHasard(Arrays.asList("Essence","Camion-citerne"));
+                break;
+            case "Garagiste" :
+
+                carte = jeuCarte.getCarteHasard(Arrays.asList("Roue de secours","Increvable"));
+                break;
+            case "DDE" :
+
+                carte = jeuCarte.getCarteHasard(Arrays.asList("Fin de limitation de vitesse","Prioritaire"));
+                break;
+            case "Bar" :
+
+                carte = jeuCarte.getCarteHasard(Arrays.asList("32","64","96","128","256"));
+                break;
+        }
+
+        joueurCourant.addCartesEnMain(carte);
+        jeuCarte.supprimeDansPioche(carte);
+
+        return carte;
     }
 }

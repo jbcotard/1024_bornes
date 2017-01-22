@@ -93,4 +93,13 @@ public class PartieRoute {
 
         return resultat;
     }
+
+    public Carte processPioche(Request request, Response response) {
+        String jid = request.params("jid");
+        String typeCommerce = request.params("typeCommerce");
+
+        Carte carte = MegaBorne.INSTANCE.getPartie().processPioche(jid,typeCommerce);
+
+        return carte;
+    }
 }

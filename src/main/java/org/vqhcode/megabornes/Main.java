@@ -102,7 +102,7 @@ public class Main {
         get("/api/parties/joueurs/",partieRoute::getJoueursInscrits,encoder);
         get("/api/parties/joueurs/:jid",partieRoute::getJoueur,encoder);
         get("/api/parties/joueurs/:jid/action/:idCarte/:defausse/:jidAdversaire", partieRoute::processActionJoueur,encoder);
-
+        get("/api/parties/joueurs/:jid/pioche/:typeCommerce", partieRoute::processPioche, encoder);
 
         // CORS
         options("/*", (request, response) -> "");
