@@ -1,30 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
 	<title>1024 Bornes</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
         <link rel="stylesheet" type="text/css" href="leaflet.css" />
         <link rel="stylesheet" type="text/css" href="dist/L.Mappy.css" />
+        <link rel="stylesheet" type="text/css" href="test.css" />
         <script type="text/javascript" src="leaflet.js"></script>
         <script type="text/javascript" src="dist/L.Mappy.js"></script>
         <script type="text/javascript" defer src="denis.js"></script>
 </head>
 <body>
 
+<div id="wrap">
+  <div class="outer-div">
+    <!-- <div id="header" > -->
+    <!--   1024 -->
+    <!-- </div> -->
+    <div id="fluid" >
+      <div id="example-map-1" style="width:100%; height:400px;">
+      </div>
+    </div>
+    <div id="sidebar">
+      <div id="div1">
+        <ul id="list-image1" style="height:100%;">
+        </ul>
 
-<div id="example-map-1" style="width:100%; height:400px;"></div>
+        <!-- <img src="marker-icon-blue.png"/> -->
+        <!-- <img src="FeuVert.jpg" alt="fv"> -->
+      </div>
+      <div id="div2">
+        <img src="marker-icon-green.png"/>
+    </div>
+      <div id="div3" >
+        <img src="marker-icon-red.png"/>
+      </div>
+  </div>
+  <div id="footer">
+  </div>
+</div>
+<!-- <div id="id_carte"> -->
+<!--   <select name="thelist" onChange="combo(this, 'theinput')"> -->
+<!--     <option>un</option> -->
+<!--     <option>deux</option> -->
+<!--     <option>trois</option> -->
+<!--   </select>  -->
+<!--   <input id="updMap" type="button" value="Capacity Chart" onclick="refreshMap();"> -->
+<!-- </div> -->
 
-<select name="thelist" onChange="combo(this, 'theinput')">
-  <option>un</option>
-  <option>deux</option>
-  <option>trois</option>
-</select> 
-
-<input id="updMap" type="button" value="Capacity Chart" onclick="refreshMap();">
 
 </body>
 </html>

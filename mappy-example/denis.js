@@ -1,16 +1,6 @@
 /**
 * Coordonnée des différentes étapes.
 */
-// var itineraires = {
-//     "villes": [
-//        { "nom": "Le Mans", "lattitude": 48.00351, "longitude": 0.19754 },
-//        { "nom": "Le Mans",
-//         "lattitude": 48.00351,
-//         "longitude": 0.19754 },
-//        { "nom": "Le Mans",
-//         "lattitude": 48.00351,
-//         "longitude": 0.19754 }, 
-
 
 // Création de la carte
 var myMap = new L.Mappy.Map("example-map-1", {
@@ -19,8 +9,8 @@ center: [48.00351,  0.19754],
     zoom: 10
 });
 
-var user = L.marker([48.00351,  0.19755]).addTo(myMap);
-
+var user;
+var userCurrent;
 
 var options = {
     vehicle: L.Mappy.Vehicles.comcar,
@@ -28,52 +18,62 @@ var options = {
     gascost: 1.0,
     gas: "petrol", // or diesel, lpg
     nopass: 0, // 1 pour un trajet sans col
-    notoll: 0, // 1 pour un trajet sans péage
+    notoll: 1, // 1 pour un trajet sans péage
     infotraffic: 0 // 1 pour un trajet avec trafic
 };
  
+function loadItineraire(localisation) {
 
+    var iti = [];
+    // Chargement des localisations.
+    for (i = 0; i < localisation.length; i++) {
+        iti.push(L.latLng(localisation[i].latitude, localisation[i].longitude));
+    }
 
-function loadItineraire() {
+    L.Mappy.Services.route(iti,
+                           options,
+                           // Callback de succès
+                           function(result) {
+                               L.Mappy.route(result.routes).addTo(myMap);
+                               var summary = result.routes.route[0].summary;
+                               var action = result.routes.route[0].actions.action;
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
-            try {
-                var jsText = xhttp.responseText;
-                var localisation = JSON.parse(jsText);
-                var iti = [];
-                // Chargement des localisations.
-                for (i = 0; i < localisation.length; i++) {
-                    iti.push(L.latLng(localisation[i].latitude, localisation[i].longitude));
-                }
+                           },
+                           // Callback d'erreur
+                           function(errorType) {
+                               // Error during route calculation
+                               Alert(errorType);
+                           }
+                          );
 
-                L.Mappy.Services.route(iti,
-                                       options,
-                                       // Callback de succès
-                                       function(result) {
-                                           L.Mappy.route(result.routes).addTo(myMap);
-                                           var summary = result.routes.route[0].summary;
-                                           var action = result.routes.route[0].actions.action;
-
-                                       },
-                                       // Callback d'erreur
-                                       function(errorType) {
-                                           // Error during route calculation
-                                           Alert(errorType);
-                                       }
-                                      );
-            } catch (e) {
-                alert(e);
-            }
-        }
-    };
-
-    xhttp.open('GET', 'itineraire.json', true);
-    xhttp.send(null);
 }
 
+function loadCartesEnMains(listeJoueurs) {
+
+    var sidebar = document.getElementById('footer');
+    removeAllItems(sidebar);
+
+    for (i = 0; i <  listeJoueurs.length;i++) { 
+        if (userCurrent == listeJoueurs[i].id ) {
+            var div = document.createElement("div"); 
+            for (j = 0; j <  listeJoueurs[i].listeCartesEnMain.length;j++) {
+                var image = document.createElement("img");
+                // if (listeJoueurs[i].listeCartesEnMain[j].
+                image.src = "cartes/128Bornes.jpg";
+            // image.id = path;
+            //image.innerHTML = text;
+                
+                div.appendChild(image);
+            }
+            sidebar.appendChild(div);
+            break;
+        }
+    }
+}
+
+/**
+ * 
+ */
 function getMarker() {
 
     var xhttp = new XMLHttpRequest();
@@ -82,10 +82,7 @@ function getMarker() {
             // Typical action to be performed when the document is ready:
             try {
                 var jsText = xhttp.responseText;
-                // alert( xhttp.responseText);
-
                 var js = JSON.parse(jsText);
-                // aler(js);
                 for (i = 0; i <  js.search_results.listings.length;i++) {
                     // js.search_results.listings[i].merchant_name
                     var lat = js.search_results.listings[i].inscriptions[0].latitude;
@@ -98,7 +95,7 @@ function getMarker() {
                     }
 
                     var greenIcon = L.icon({
-                        iconUrl: '64Bornes.jpg',
+                        iconUrl: 'cartes/defausse.jpg',
                         // shadowUrl: '64Bornes.jpg',
                         iconSize:     [40, 53], // size of the icon
                         shadowSize:   [50, 64], // size of the shadow
@@ -107,17 +104,8 @@ function getMarker() {
                         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
                     });
 
-// L.marker([51.5, -0.09], {icon: greenIcon} ).addTo(map)
-
                     var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
                     marker.addTo(myMap);
-
-                // var circle = L.circle([lat, longit ], {
-                //     color: 'blue',
-                //     fillColor: 'blue',
-                //     fillOpacity: 0.5,
-                //     radius: 2
-                // }).addTo(myMap);
                 }
             } catch (e) {
                 alert(e);
@@ -126,33 +114,113 @@ function getMarker() {
     };
 
     xhttp.open('GET', 'cci.json', true);
+    // xhttp.open('GET', 'https://api.apipagesjaunes.fr/pros/find?what=cci&where=le%20mans&app_id=d140a6f6&app_key=26452728b034374bccb462e880bfb0e5&return_urls=false&proximity=true&max=6&page=1', true);
+
     xhttp.send(null);
 }
 
-loadItineraire();
+// loadItineraire();
+
+// getMarker();
+
+function getJoueur() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            try {
+                var jsText = xhttp.responseText;
+                userCurrent = jsText;
+                user =  L.marker([48.00351,  0.19755]).addTo(myMap);
+                user.bindPopup("<b>" + userCurrent + "</b><br />").openPopup();
+
+                inscrireJoueur(userCurrent);
+
+            } catch (e) {
+                alert(e);
+            }
+        }
+    };
+
+    xhttp.open('GET', 'http://192.168.1.24:4567/api/joueurs/generate/', true);
+    xhttp.send(null);
+}
+
+
+function inscrireJoueur(idJoueur) {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            try {
+                var jsText = xhttp.responseText;
+                var tp = JSON.parse(jsText);
+                if (tp.etat == "enCours" ) {
+                    loadItineraire(tp.circuit.listePositions);
+
+                    // Chargement des cartes en mains
+                    loadCartesEnMains(tp.listeJoueurs);
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+    };
+    // Joueur inscrie
+    xhttp.open('GET', 'http://192.168.1.24:4567/api/parties/inscrire/' + idJoueur , true);
+    xhttp.send(null);
+}
+
+function reset() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            try {
+                var userCurrent = getJoueur();
+
+                user =  L.marker([48.00351,  0.19755]).addTo(myMap);
+                user.bindPopup("<b>" + userCurrent + "</b><br />").openPopup();
+
+                inscrireJoueur(userCurrent);
+            } catch (e) {
+                alert(e);
+            }
+        }
+    };
+    // Joueur inscrie
+    xhttp.open('GET', 'http://192.168.1.24:4567/api/parties/reset/', true);
+    xhttp.send(null);
+}
+
+// reset();
+
+getJoueur();
 
 getMarker();
 
 function refreshMap() {
-    // var map = document.getElementById("example-map-1");
-
     myMap.remove();
     myMap = new L.Mappy.Map("example-map-1", {
-    clientId: 'dri_24hducode',
-center: [47.3943,  0.6951],
-    zoom: 10
-}); 
+        clientId: 'dri_24hducode',
+        center: [47.3943,  0.6951],
+        zoom: 10
+    });
+    user = L.marker([47.3943, 0.7]).addTo(myMap);
+    user.bindPopup("<b>User1</b><br />").openPopup();
 
-loadItineraire();
-
-    // user.setLatLng([47.3943,0.6955]).update();
-    // try {
-    //     myMap.setView(user.latLng);
-    // } catch(e) {
-    //     alert(e);
-    // }
+    loadItineraire();
 }
 
+function removeAllItems(list) {
+    // remove all element in the list.
+	while (list.firstChild) {
+        list.removeChild(list.firstChild);
+    }
+}
 
 // https://api.apipagesjaunes.fr/pros/find?what=cci&where=le%20mans&app_id=d140a6f6&app_key=26452728b034374bccb462e880bfb0e5&return_urls=false&proximity=true&max=6&page=1
 
@@ -164,3 +232,42 @@ loadItineraire();
 
 
 
+// function loadItineraire() {
+
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function() {
+//         if (this.readyState == 4 && this.status == 200) {
+//             // Typical action to be performed when the document is ready:
+//             try {
+//                 var jsText = xhttp.responseText;
+//                 var localisation = JSON.parse(jsText);
+//                 var iti = [];
+//                 // Chargement des localisations.
+//                 for (i = 0; i < localisation.length; i++) {
+//                     iti.push(L.latLng(localisation[i].latitude, localisation[i].longitude));
+//                 }
+
+//                 L.Mappy.Services.route(iti,
+//                                        options,
+//                                        // Callback de succès
+//                                        function(result) {
+//                                            L.Mappy.route(result.routes).addTo(myMap);
+//                                            var summary = result.routes.route[0].summary;
+//                                            var action = result.routes.route[0].actions.action;
+
+//                                        },
+//                                        // Callback d'erreur
+//                                        function(errorType) {
+//                                            // Error during route calculation
+//                                            Alert(errorType);
+//                                        }
+//                                       );
+//             } catch (e) {
+//                 alert(e);
+//             }
+//         }
+//     };
+
+//     xhttp.open('GET', 'It1.json', true);
+//     xhttp.send(null);
+// }
