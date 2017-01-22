@@ -26,10 +26,10 @@
     <div id="sidebar">
       <div id="div1">
         <ul id="list-image1" style="height:100%;">
-        </ul>
+          <input id="updMap" type="button" value="Reset" onclick="refreshMap();">
 
-        <!-- <img src="marker-icon-blue.png"/> -->
-        <!-- <img src="FeuVert.jpg" alt="fv"> -->
+ <input id="nextMap" type="button" value="nextMap" onclick="nextMap();">
+        </ul>
       </div>
       <div id="div2">
         <img src="marker-icon-green.png"/>
@@ -39,6 +39,15 @@
       </div>
   </div>
   <div id="footer">
+    <div id="cartesUser">
+    </div>
+    <div id="boutonUser">
+      <ul id="list-image1" style="height:100%;">
+        <input id="btnAffecter" type="button" value="Affecter à" onclick="affecterA();">
+        <input id="btnJouer" type="button" value="Jouer" onclick="play();">
+      </ul>
+
+    </div>
   </div>
 </div>
 <!-- <div id="id_carte"> -->
@@ -49,7 +58,6 @@
 <!--   </select>  -->
 <!--   <input id="updMap" type="button" value="Capacity Chart" onclick="refreshMap();"> -->
 <!-- </div> -->
-
 
 </body>
 </html>
