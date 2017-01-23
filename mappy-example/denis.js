@@ -55,90 +55,8 @@ function loadCartesEnMains(listeJoueurs) {
     removeAllItems(sidebar);
 
     for (i = 0; i <  listeJoueurs.length;i++) { 
-        if (userCurrent == listeJoueurs[i].id ) {
-            var div = document.createElement("div"); 
-            for (j = 0; j <  listeJoueurs[i].listeCartesEnMain.length;j++) {
-                var image = document.createElement("img");
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Feu vert") {
-                    image.src = "cartes/FeuVert.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Feu rouge") {
-                    image.src = "cartes/FeuRouge.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "256") {
-                    image.src = "cartes/256Bornes.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "128") {
-                    image.src = "cartes/128Bornes.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "96") {
-                    image.src = "cartes/96Bornes.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "64") {
-                    image.src = "cartes/64Bornes.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "32") {
-                    image.src = "cartes/32Bornes.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Roue de secours") {
-                    image.src = "cartes/RouDeSecours.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Réparation") {
-                    image.src = "cartes/Reparations.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Fin de limitation de vitesse") {
-                    image.src = "cartes/FinLimitationVitesse.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Essence") {
-                    image.src = "cartes/Essence.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Panne Essence") {
-                    image.src = "cartes/PanneEssence.jpg";
-                }
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Crevaison") {
-                    image.src = "cartes/Crevaison.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Accident de la route") {
-                    image.src = "cartes/Accident.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Limitation de vitesse") {
-                    image.src = "cartes/LimitationVitesse.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Increvable") {
-                    image.src = "cartes/Increvable.jpg";
-                }
-
-                if (listeJoueurs[i].listeCartesEnMain[j].valeur == "Camion-citerne") {
-                    image.src = "cartes/CamionCiterne.jpg";
-                }
-
-                image.id = listeJoueurs[i].listeCartesEnMain[j].idCarte;
- 
-                // Event
-                image.addEventListener('click', function (e) {
-                   //  alert("Click" + e);
-                    action(e.currentTarget.id);
-                });
-
-                div.appendChild(image);
-            }
-            sidebar.appendChild(div);
-            break;
+        if (userCurrent == listeJoueurs[i].id ) {  	
+        	loadCartesEnMainsUser(listeJoueurs[i].listeCartesEnMain);
         }
     }
 }
@@ -257,7 +175,7 @@ function action(id) {
         }
     };
 
-    xhttp.open('GET', "http://192.168.1.24:4567/api/parties/joueurs/" + userCurrent + "/action/" + id + "/false/toto", true);
+    xhttp.open('GET', "http://localhost:4567/api/parties/joueurs/" + userCurrent + "/action/" + id + "/false/toto", true);
     xhttp.send(null);
 }
 
@@ -277,7 +195,7 @@ function updatePioche() {
         }
     };
 
-    xhttp.open('GET', "http://192.168.1.24:4567/api/parties/joueurs/" + userCurrent, true);
+    xhttp.open('GET', "http://localhost:4567/api/parties/joueurs/" + userCurrent, true);
     xhttp.send(null);
 }
 
@@ -296,7 +214,7 @@ function pioche(typeCommerce) {
         }
     };
 
-    xhttp.open('GET', "http://192.168.1.24:4567/api/parties/joueurs/" + userCurrent + "/pioche/" + typeCommerce, true);
+    xhttp.open('GET', "http://localhost:4567/api/parties/joueurs/" + userCurrent + "/pioche/" + typeCommerce, true);
     xhttp.send(null);
 }
 
@@ -328,7 +246,7 @@ function getJoueur() {
         }
     };
 
-    xhttp.open('GET', 'http://192.168.1.24:4567/api/joueurs/generate/', true);
+    xhttp.open('GET', 'http://localhost:4567/api/joueurs/generate/', true);
     xhttp.send(null);
 }
 
@@ -354,7 +272,7 @@ function inscrireJoueur(idJoueur) {
         }
     };
     // Joueur inscrie
-    xhttp.open('GET', 'http://192.168.1.24:4567/api/parties/inscrire/' + idJoueur , true);
+    xhttp.open('GET', 'http://localhost:4567/api/parties/inscrire/' + idJoueur , true);
     xhttp.send(null);
 }
 
@@ -377,7 +295,7 @@ function reset() {
         }
     };
     // Joueur inscrie
-    xhttp.open('GET', 'http://192.168.1.24:4567/api/parties/reset/', true);
+    xhttp.open('GET', 'http://localhost:4567/api/parties/reset/', true);
     xhttp.send(null);
 }
 
@@ -425,10 +343,7 @@ function myCallback() {
                                 var longit = result[0].listeJoueurs[i].position.listeCommerces[j].longitude;
 
                                 function onClick(e) {
-
                                     e.target.bindPopup("<b>" + e.target.id + "</b><br />").openPopup();
-                                    // e.target.removeFrom(myMap);
-
                                     pioche(e.target.id);
                                 }
 
@@ -445,13 +360,11 @@ function myCallback() {
                                 var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
                                 marker.id =  result[0].listeJoueurs[i].position.listeCommerces[j].type;
                                 marker.addTo(myMap);
-
-
-                                var lat = result[0].listeJoueurs[i].position.latitude;
-                                var longi = result[0].listeJoueurs[i].position.longitude;
-                                var newLatLng = new L.LatLng(lat, longi);
-                                user.setLatLng(newLatLng);
                             }
+                            var lat = result[0].listeJoueurs[i].position.latitude;
+                            var longi = result[0].listeJoueurs[i].position.longitude;
+                            var newLatLng = new L.LatLng(lat, longi);
+                            user.setLatLng(newLatLng);
                         }
                     }
                 }
@@ -464,7 +377,7 @@ function myCallback() {
         }
     };
 
-    xhttp.open('GET', 'http://192.168.1.24:4567/api/parties', true);
+    xhttp.open('GET', 'http://localhost:4567/api/parties', true);
     xhttp.send(null);
 }
 
