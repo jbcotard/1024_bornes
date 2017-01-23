@@ -1,0 +1,13 @@
+container {
+    display: table;
+    }
+.row  {
+    display: table-row;
+    }
+.left, .right, .middle {
+    display: table-cell;
+    padding-right: 25px;
+    }
+.left p, .right p, .middle p {
+    margin: 1px 1px;
+   }

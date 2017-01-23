@@ -13,6 +13,8 @@ var user;
 var userCurrent;
 var userActif = false;
 
+var imgEtat = document.getElementById("idEtat");
+
 var options = {
     vehicle: L.Mappy.Vehicles.comcar,
     cost: "length", // or "time" or "price"
@@ -55,7 +57,8 @@ function loadCartesEnMains(listeJoueurs) {
     removeAllItems(sidebar);
 
     for (i = 0; i <  listeJoueurs.length;i++) { 
-        if (userCurrent == listeJoueurs[i].id ) {  	
+        if (userCurrent == listeJoueurs[i].id ) {  
+        	document.getElementById("idUser0").innerHTML = listeJoueurs[i].nom;
         	loadCartesEnMainsUser(listeJoueurs[i].listeCartesEnMain);
         }
     }
@@ -160,8 +163,9 @@ function action(id) {
             // Typical action to be performed when the document is ready:
             try {
                 userActif = false;                
-               /* var jsText = xhttp.responseText;
+                var jsText = xhttp.responseText;
                 console.log(jsText);
+                /*
                 userCurrent = jsText.replace("\"", "");
                 userCurrent = userCurrent.replace("\"", "");
                 user =  L.marker([48.00351,  0.19755]).addTo(myMap);
@@ -327,11 +331,10 @@ function myCallback() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
             try {
                 var jsText = xhttp.responseText;
                 var result = JSON.parse(jsText);
-                console.log(result);
+                // console.log(result);
 
                 for (i = 0; i < result[0].listeJoueurs.length; i++) {
                     if (result[0].listeJoueurs[i].id == userCurrent) {
@@ -361,15 +364,17 @@ function myCallback() {
                                 marker.id =  result[0].listeJoueurs[i].position.listeCommerces[j].type;
                                 marker.addTo(myMap);
                             }
-                            var lat = result[0].listeJoueurs[i].position.latitude;
-                            var longi = result[0].listeJoueurs[i].position.longitude;
+                            var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
+                            var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
                             var newLatLng = new L.LatLng(lat, longi);
                             user.setLatLng(newLatLng);
+                            imgEtat.src = "cartes/FeuVert.jpg";
                         }
                     }
                 }
             if ( userActif != true) {
-                // 
+                //
+            	imgEtat.src = "cartes/FeuRouge.jpg";
             }
             } catch (e) {
                 alert(e);
