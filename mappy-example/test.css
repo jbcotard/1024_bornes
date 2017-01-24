@@ -20,7 +20,14 @@
 #sidebar {
     width: 350px;
     float: left;
-    height: 400px;
+    height: 500px;
     background: #ddd;
 }
 
+.carte  { 
+    cursor: pointer;
+	margin-left: 5px; 
+	border-style: groove;
+	height: 60px;
+	width: 40px;
+} 

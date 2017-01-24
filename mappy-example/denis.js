@@ -141,6 +141,7 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
         }
 
         image.id = listeCartesEnMain[j].idCarte;
+        image.className = "carte";
         
         // Event
         image.addEventListener('click', function (e) {
@@ -287,6 +288,7 @@ function reset() {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
             try {
+            	userActif = false;
                 getJoueur();
 
                 // user =  L.marker([48.00351,  0.19755]).addTo(myMap);
