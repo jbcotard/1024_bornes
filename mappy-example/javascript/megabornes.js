@@ -158,7 +158,12 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
 
 
 function action(id) {
-   var xhttp = new XMLHttpRequest();
+	
+	if (!userActif) {
+		window.Alert("Le joueur n'est pas actif!");
+		return;
+	}
+	var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             // Typical action to be performed when the document is ready:
@@ -374,10 +379,10 @@ function myCallback() {
                         }
                     }
                 }
-            if ( userActif != true) {
-                //
-            	imgEtat.src = "cartes/FeuRouge.jpg";
-            }
+                if ( userActif != true) {
+                	//
+                	imgEtat.src = "cartes/FeuRouge.jpg";
+                }
             } catch (e) {
                 alert(e);
             }
