@@ -9,6 +9,7 @@ ifndef::sourcedir[:sourcedir: ../../main/java]
 
 
 [background-color="white"]
+[transition-speed=fast]
 == Cartouche de la main
 
 [%step]
