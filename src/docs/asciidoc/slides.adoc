@@ -50,6 +50,7 @@ ifndef::sourcedir[:sourcedir: ../../main/java]
 ** Si Perdant
 *** Affichage cartouche « Vous avez perdu ! »
 
+[transition=zoom]
 [background-color="white"]
 == Cartouche d’état des joueurs
 
@@ -61,6 +62,7 @@ ifndef::sourcedir[:sourcedir: ../../main/java]
 ** Néant
 
 [background-color="white"]
+[transition-speed=fast]
 == Cartouche de la carte
 
 * Eléments à afficher :
