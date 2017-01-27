@@ -18,7 +18,8 @@ var etatPartieEnum = {
 
 
 var user;
-var userCurrent;
+var userCurrent = "inconnu";
+
 var userActif = false;
 var etatPartie = etatPartieEnum.enAttenteJoueur;
 
@@ -238,11 +239,6 @@ function pioche(typeCommerce) {
 }
 
 
-
-// loadItineraire();
-
-// getMarker();
-
 function getJoueur() {
 
     var xhttp = new XMLHttpRequest();
@@ -319,14 +315,13 @@ function reset() {
     xhttp.send(null);
 }
 
-// reset();
-
-getJoueur();
+// getJoueur();
 
 // getMarker();
 
-function nextMap() {
-    inscrireJoueur(userCurrent);
+function rejoindre() {
+	getJoueur();
+    //inscrireJoueur(userCurrent);
 }
 
 function refreshMap() {
@@ -353,46 +348,50 @@ function myCallback() {
                 // console.log(result);
 
                 displayEtatJeu(result[0].etat);
-               
-                for (i = 0; i < result[0].listeJoueurs.length; i++) {
-                    if (result[0].listeJoueurs[i].id == userCurrent) {
-                        if (result[0].listeJoueurs[i].etat == "actif" && userActif == false) {
-                            userActif = true;
-                            for (j = 0; j <  result[0].listeJoueurs[i].position.listeCommerces.length;j++) {
+                
+                if (userCurrent != "inconnu") {
+	                for (i = 0; i < result[0].listeJoueurs.length; i++) {
+	                    if (result[0].listeJoueurs[i].id == userCurrent) {
+	                        if (result[0].listeJoueurs[i].etat == "actif" && userActif == false) {
+	                            userActif = true;
+	                            for (j = 0; j <  result[0].listeJoueurs[i].position.listeCommerces.length;j++) {
+	
+	                                var lat = result[0].listeJoueurs[i].position.listeCommerces[j].latitude;
+	                                var longit = result[0].listeJoueurs[i].position.listeCommerces[j].longitude;
+	
+	                                function onClick(e) {
+	                                    e.target.bindPopup("<b>" + e.target.id + "</b><br />").openPopup();
+	                                    pioche(e.target.id);
+	                                }
+	
+	                                var greenIcon = L.icon({
+	                                    iconUrl: 'cartes/defausse.jpg',
+	                                    // shadowUrl: '64Bornes.jpg',
+	                                    iconSize:     [40, 53], // size of the icon
+	                                    shadowSize:   [50, 64], // size of the shadow
+	                                    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+	                                    shadowAnchor: [4, 62],  // the same for the shadow
+	                                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+	                                });
+	
+	                                var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
+	                                marker.id =  result[0].listeJoueurs[i].position.listeCommerces[j].type;
+	                                marker.addTo(myMap);
+	                            }
+	                            var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
+	                            var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
+	                            var newLatLng = new L.LatLng(lat, longi);
+	                            user.setLatLng(newLatLng);
+	                            imgEtat.src = "cartes/FeuVert.jpg";
+	                        }
+	                    }
+	                }
+	                if (etatPartie == etatPartieEnum.enCours && userActif != true) {
+	                	imgEtat.src = "cartes/waiting.png";
+	                }
 
-                                var lat = result[0].listeJoueurs[i].position.listeCommerces[j].latitude;
-                                var longit = result[0].listeJoueurs[i].position.listeCommerces[j].longitude;
-
-                                function onClick(e) {
-                                    e.target.bindPopup("<b>" + e.target.id + "</b><br />").openPopup();
-                                    pioche(e.target.id);
-                                }
-
-                                var greenIcon = L.icon({
-                                    iconUrl: 'cartes/defausse.jpg',
-                                    // shadowUrl: '64Bornes.jpg',
-                                    iconSize:     [40, 53], // size of the icon
-                                    shadowSize:   [50, 64], // size of the shadow
-                                    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-                                    shadowAnchor: [4, 62],  // the same for the shadow
-                                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-                                });
-
-                                var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
-                                marker.id =  result[0].listeJoueurs[i].position.listeCommerces[j].type;
-                                marker.addTo(myMap);
-                            }
-                            var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
-                            var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
-                            var newLatLng = new L.LatLng(lat, longi);
-                            user.setLatLng(newLatLng);
-                            imgEtat.src = "cartes/FeuVert.jpg";
-                        }
-                    }
                 }
-                if (etatPartie == etatPartieEnum.enCours && userActif != true) {
-                	imgEtat.src = "cartes/waiting.png";
-                }
+
             } catch (e) {
                 alert(e);
             }
