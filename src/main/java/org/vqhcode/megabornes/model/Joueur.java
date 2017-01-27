@@ -132,4 +132,18 @@ public class Joueur {
     public void addCartesExposees(Carte carte) {
         listeCartesExposees.add(carte);
     }
+
+    @Override
+    public String toString() {
+        return "Joueur{" +
+                "etat=" + etat +
+                ", nom='" + nom + '\'' +
+                ", position=" + position +
+                ", listeCartesEnMain=" + listeCartesEnMain +
+                ", listeCartesExposees=" + listeCartesExposees +
+                ", derniereCarteJouee=" + derniereCarteJouee +
+                ", id='" + id + '\'' +
+                ", nbBornesParcourues=" + nbBornesParcourues +
+                '}';
+    }
 }

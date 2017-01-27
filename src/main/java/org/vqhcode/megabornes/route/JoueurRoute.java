@@ -48,6 +48,8 @@ public class JoueurRoute {
         }
         MegaBorne.INSTANCE.setListeJoueur(listeJoueurs);
 
+        System.out.println("Création du joueur [" + idJoueur + "]" );
+
         return idJoueur;
     }
 }

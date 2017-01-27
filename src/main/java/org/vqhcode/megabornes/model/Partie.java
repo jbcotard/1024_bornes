@@ -234,7 +234,7 @@ etat = EtatPartie.termine;
 
     public int processActionJoueur(String jid, String idCarte, boolean defausse, String jidAdversaire) {
 
-        System.out.println("action " + jid + " " + idCarte + " " + defausse + " " + jidAdversaire);
+        //System.out.println("action " + jid + " " + idCarte + " " + defausse + " " + jidAdversaire);
 
         Joueur joueur = listeJoueurs.stream().collect(HashMap<String, Joueur>::new, (m, c) -> m.put(c.getId(), c),
                 (m, u) -> {
@@ -489,7 +489,7 @@ etat = EtatPartie.termine;
 
     public Carte processPioche(String jid, String typeCommerce) {
 
-        System.out.println("pioche carte " + jid + " " + typeCommerce);
+        //System.out.println("pioche carte " + jid + " " + typeCommerce);
 
         Carte carte = null;
 
@@ -540,7 +540,7 @@ etat = EtatPartie.termine;
             jeuCarte.supprimeDansPioche(carte);
         }
 
-        System.out.println("carte piochee = " + carte);
+        //System.out.println("carte piochee = " + carte);
         return carte;
     }
 }

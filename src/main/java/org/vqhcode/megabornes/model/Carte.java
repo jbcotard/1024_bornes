@@ -55,4 +55,14 @@ public class Carte {
     public void setTypeCarte(TypeCarte typeCarte) {
         this.typeCarte = typeCarte;
     }
+
+    @Override
+    public String toString() {
+        return "Carte{" +
+                "etat=" + etat +
+                ", valeur='" + valeur + '\'' +
+                ", typeCarte=" + typeCarte +
+                ", idCarte='" + idCarte + '\'' +
+                '}';
+    }
 }
