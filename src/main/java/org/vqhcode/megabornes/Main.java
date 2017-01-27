@@ -34,6 +34,10 @@ public class Main {
         megaBorne.setListeJoueur(new ArrayList<Joueur>());
         megaBorne.setPartie(null);
 
+
+        // Frontend
+        staticFileLocation("/public");
+
         // initialisation circuit
         Gson gson = new Gson();
         URL resourceCircuit = Main.class.getClassLoader().getResource("circuitcomplet.json");

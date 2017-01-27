@@ -1,0 +1,33 @@
+#wrap {
+ margin: 0px; 
+ padding: 10px; 
+ max-width:1000px; 
+ min-width:500px;
+ margin:1px;}
+
+#header {background: #0f0;}
+
+#fluid {
+    float: right;
+    width: 100%;
+    margin-right: -350px;}
+
+#content {
+    margin-right: 210px;
+    min-height:100px;
+    background: #ddd;}
+
+#sidebar {
+    width: 350px;
+    float: left;
+    height: 500px;
+    background: #ddd;
+}
+
+.carte  { 
+    cursor: pointer;
+	margin-left: 5px; 
+	border-style: groove;
+	height: 60px;
+	width: 40px;
+} 

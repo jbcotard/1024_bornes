@@ -246,8 +246,8 @@ etat = EtatPartie.termine;
                 (m, u) -> {
                 }).get(idCarte);
 
-        System.out.println(carte.getValeur() + " " + carte.getIdCarte()
-        + " " +carte.getEtat());
+        //System.out.println(carte.getValeur() + " " + carte.getIdCarte()
+        //+ " " +carte.getEtat());
 
         int resultat = 0;
 
@@ -386,11 +386,10 @@ etat = EtatPartie.termine;
                             joueur.isCarteExposee("Accident de la route") == null ||
                             joueur.isCarteExposee("Crevaison") == null ||
                             joueur.isCarteExposee("Panne d'essence") == null) {
-                        resultat = 1;
-                    } else {
                         joueur.addCartesExposees(carte);
                         joueur.delCartesEnMain(carte);
-
+                    } else {
+                        resultat = 1;
                     }
                     break;
                 case "As du volant" :
