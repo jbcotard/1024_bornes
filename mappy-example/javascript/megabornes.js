@@ -9,9 +9,18 @@ center: [48.00351,  0.19754],
     zoom: 10
 });
 
+var etatPartieEnum = {
+	enCours:1,
+	termine:2,
+	enAttenteJoueur:3		
+};
+
+
+
 var user;
 var userCurrent;
 var userActif = false;
+var etatPartie = etatPartieEnum.enAttenteJoueur;
 
 var imgEtat = document.getElementById("idEtat");
 
@@ -343,6 +352,8 @@ function myCallback() {
                 var result = JSON.parse(jsText);
                 // console.log(result);
 
+                displayEtatJeu(result[0].etat);
+               
                 for (i = 0; i < result[0].listeJoueurs.length; i++) {
                     if (result[0].listeJoueurs[i].id == userCurrent) {
                         if (result[0].listeJoueurs[i].etat == "actif" && userActif == false) {
@@ -379,9 +390,8 @@ function myCallback() {
                         }
                     }
                 }
-                if ( userActif != true) {
-                	//
-                	imgEtat.src = "cartes/FeuRouge.jpg";
+                if (etatPartie == etatPartieEnum.enCours && userActif != true) {
+                	imgEtat.src = "cartes/waiting.png";
                 }
             } catch (e) {
                 alert(e);
@@ -391,6 +401,30 @@ function myCallback() {
 
     xhttp.open('GET', 'http://localhost:4567/api/parties', true);
     xhttp.send(null);
+}
+
+/**
+ * Affichage de l'état du Jeu
+ * @param etat
+ * @returns
+ */
+function displayEtatJeu(etat) {
+    switch (etat) {
+	case "enAttenteJoueur":
+		etatPartie = etatPartieEnum.enAttenteJoueur; 
+		imgEtat.src = "cartes/FeuOrange.jpg";
+		break;
+	case "enCours":
+		imgEtat.src = "cartes/FeuVert.jpg";
+		etatPartie = etatPartieEnum.enCours;
+		break;
+	case "termine":
+		imgEtat.src = "cartes/FeuRouge.jpg";
+		etatPartie = etatPartieEnum.termine;
+	default:
+		break;
+	}
+
 }
 
 function affecterA() {
