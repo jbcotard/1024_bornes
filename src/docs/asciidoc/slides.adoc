@@ -1,0 +1,82 @@
+[background-color="white"]
+= 1024 Bornes
+Doc Writer <michel.venet@sesam-vitale.fr>
+2017-01-21
+:revnumber: {project-version}
+:example-caption!:
+ifndef::imagesdir[:imagesdir: images]
+ifndef::sourcedir[:sourcedir: ../../main/java]
+
+
+[background-color="white"]
+[transition-speed=fast]
+== Cartouche de la main
+
+[%step]
+
+* Éléments à afficher :
+* 6 cartes en main
+* 1 carte tirée (option)
+
+[background-color="white"]
+== Interactions
+
+* Click sur une carte pour la jouer
+* Si carte personnelle :
+* Jeu
+* Défausse
+* Si carte attaque :
+** Nom joueur adverse 1
+** Nom joueur adverse 2
+
+[background-color="white"]
+== Requêtes serveur
+
+* Carte jouée
+** Moi / Adversaire / Défausse
+*** Code retour :
+*** Carte interdite
+**** Affichage message d’erreur
+**** Nouvelle sélection de carte
+
+[background-color="white"]
+== Récupération de données
+
+** Si Inactif
+*** Aucun élément actif sauf navigation carte
+** Si Actif
+*** Activation de l’IHM
+** Si Vainqueur
+*** Affichage cartouche « Vous avez gagné ! »
+** Si Perdant
+*** Affichage cartouche « Vous avez perdu ! »
+
+[transition=zoom]
+[background-color="white"]
+== Cartouche d’état des joueurs
+
+* Eléments à afficher :
+** Nom joueur
+** Cartes exposées (0 – 5)
+** Dernière carte jouée
+* Interactions :
+** Néant
+
+[background-color="white"]
+[transition-speed=fast]
+== Cartouche de la carte
+
+* Eléments à afficher :
+** Itinéraire
+*** Départ
+*** Etapes intermédiaires
+*** Arrivée
+*** Centrée sur la position de centrage
+** Positions des joueurs
+** Commerces (option)
+* Interactions :
+** Sélection d’un commerce
+** Centrage sur la position du joueur (optionnel)
+* Requêtes serveur :
+** Commerce sélectionné
+
