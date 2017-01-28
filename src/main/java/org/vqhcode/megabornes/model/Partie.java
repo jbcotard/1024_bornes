@@ -97,6 +97,13 @@ public class Partie {
         }
 
         joueurCourant = listeJoueurs.get(indexJoueurCourant);
+        
+        
+        for (Joueur joueur: listeJoueurs) {
+        	if (joueur.getEtat() == EtatJoueur.actif)
+        		joueur.setEtat(EtatJoueur.inactif);
+        }
+        joueurCourant.setEtat(EtatJoueur.actif);
 
         List<Commerce> listeCommercesJoueurCourant = joueurCourant.getPosition().getListeCommerces();
         List<Commerce> listeCommercesFiltres = new ArrayList<>();
