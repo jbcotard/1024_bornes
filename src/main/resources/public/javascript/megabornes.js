@@ -127,7 +127,7 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
             image.src = "cartes/Essence.jpg";
         }
         
-        if (listeCartesEnMain[j].valeur == "Panne Essence") {
+        if (listeCartesEnMain[j].valeur == "Panne d'essence") {
             image.src = "cartes/PanneEssence.jpg";
         }
         if (listeCartesEnMain[j].valeur == "Crevaison") {
@@ -146,10 +146,14 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
             image.src = "cartes/Increvable.jpg";
         }
         
-       if (listeCartesEnMain[j].valeur == "Camion-citerne") {
+        if (listeCartesEnMain[j].valeur == "Camion-citerne") {
             image.src = "cartes/CamionCiterne.jpg";
         }
 
+        if (listeCartesEnMain[j].valeur == "As du volant") {
+            image.src = "cartes/AsDuVolant.jpg";
+        }        
+        
         image.id = listeCartesEnMain[j].idCarte;
         image.className = "carte";
         
@@ -176,19 +180,10 @@ function action(id) {
 	var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
             try {
-                userActif = false;                
+                // userActif = false;                
                 var jsText = xhttp.responseText;
                 console.log(jsText);
-                /*
-                userCurrent = jsText.replace("\"", "");
-                userCurrent = userCurrent.replace("\"", "");
-                user =  L.marker([48.00351,  0.19755]).addTo(myMap);
-                user.bindPopup("<b>" + userCurrent + "</b><br />").openPopup();
-
-                inscrireJoueur(userCurrent);
-               */
             } catch (e) {
                 alert(e);
             }
@@ -240,7 +235,7 @@ function pioche(typeCommerce) {
 
 
 function getJoueur() {
-
+	console.log("getJoueur");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -267,7 +262,7 @@ function getJoueur() {
 
 
 function inscrireJoueur(idJoueur) {
-
+	console.log("inscrireJoueur");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -275,9 +270,10 @@ function inscrireJoueur(idJoueur) {
             try {
                 var jsText = xhttp.responseText;
                 var tp = JSON.parse(jsText);
+               
+                loadItineraire(tp.circuit.listePositions);
+                
                 if (tp.etat == "enCours" ) {
-                    loadItineraire(tp.circuit.listePositions);
-
                     // Chargement des cartes en mains
                     loadCartesEnMains(tp.listeJoueurs);
                 }
@@ -304,11 +300,6 @@ function reset() {
                 removeAllItems(sidebar);
             	
                 getJoueur();
-
-                // user =  L.marker([48.00351,  0.19755]).addTo(myMap);
-                // user.bindPopup("<b>" + userCurrent + "</b><br />").openPopup();
-
-                // inscrireJoueur(userCurrent);
             } catch (e) {
                 alert(e);
             }
@@ -356,7 +347,16 @@ function myCallback() {
                 if (userCurrent != "inconnu") {
 	                for (i = 0; i < result[0].listeJoueurs.length; i++) {
 	                    if (result[0].listeJoueurs[i].id == userCurrent) {
-	                        if (result[0].listeJoueurs[i].etat == "actif" && userActif == false) {
+	                    	
+	                    	var userActifMaj = false;
+	                    	
+	                    	if (result[0].listeJoueurs[i].etat == "actif") {
+	                    		userActifMaj = true;
+	                    	}
+	                    	
+	                    	// Maj de la carte et position si changement d'état du Joueur.
+	                    	if (userActifMaj != userActif ) {
+	                    		// if (result[0].listeJoueurs[i].etat == "actif" && userActif == false) {
 	                            userActif = true;
 	                            for (j = 0; j <  result[0].listeJoueurs[i].position.listeCommerces.length;j++) {
 	
@@ -390,8 +390,13 @@ function myCallback() {
 	                            
 	                            loadCartesEnMainsUser(result[0].listeJoueurs[i].listeCartesEnMain);
 	                        }
+		                    userActif = userActifMaj;
+		                    break;
 	                    }
+
 	                }
+	                
+	                // Une partie en cours mais l'utilisateur est inactif (En attente).
 	                if (etatPartie == etatPartieEnum.enCours && userActif != true) {
 	                	imgEtat.src = "cartes/waiting.png";
 	                }
@@ -437,52 +442,4 @@ function affecterA() {
 }
 
 function play() {
-}
-
-/**
- * 
- */
-function getMarker() {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
-            try {
-                var jsText = xhttp.responseText;
-                var js = JSON.parse(jsText);
-                for (i = 0; i <  js.search_results.listings.length;i++) {
-                    // js.search_results.listings[i].merchant_name
-                    var lat = js.search_results.listings[i].inscriptions[0].latitude;
-                    var longit = js.search_results.listings[i].inscriptions[0].longitude;
-                    // js.search_results.listings[i].inscriptions[0].distance
-
-                    function onClick(e) {
-                        // alert(e.latlng);
-                        e.target.removeFrom(myMap);
-                    }
-
-                    var greenIcon = L.icon({
-                        iconUrl: 'cartes/defausse.jpg',
-                        // shadowUrl: '64Bornes.jpg',
-                        iconSize:     [40, 53], // size of the icon
-                        shadowSize:   [50, 64], // size of the shadow
-                        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-                        shadowAnchor: [4, 62],  // the same for the shadow
-                        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-                    });
-
-                    var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
-                    marker.addTo(myMap);
-                }
-            } catch (e) {
-                alert(e);
-            }
-        }
-    };
-
-    xhttp.open('GET', 'cci.json', true);
-    // xhttp.open('GET', 'https://api.apipagesjaunes.fr/pros/find?what=cci&where=le%20mans&app_id=d140a6f6&app_key=26452728b034374bccb462e880bfb0e5&return_urls=false&proximity=true&max=6&page=1', true);
-
-    xhttp.send(null);
 }
