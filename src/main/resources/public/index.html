@@ -16,7 +16,7 @@
 	<div id="wrap">
 		<div class="outer-div">
 			<div id="fluid">
-				<div id="example-map-1" style="width: 100%; height: 500px;"></div>
+				<div id="example-map-1" style="width: 100%; height: 350px;"></div>
 			</div>
 			<div id="sidebar">
 				<div id="div1">
@@ -28,15 +28,15 @@
 							onclick="rejoindre();">
 					</ul>
 				</div>
-				<div id="div0" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<div id="divCurrent"  ondragover="allowDrop(event)">
 					<img src="images/marker-icon-blue.png" />
-					<label id="idUser0"></label>
+					<label id="idUserCurrent"></label>
 				</div>				
-				<div id="div1">
+				<div id="div0" ondrop="drop(event)">
 					<img src="images/marker-icon-green.png" />
-					<label id="idUser1"></label>
+					<label id="idUser0"></label>
 				</div>
-				<div id="div2">
+				<div id="div1" ondrop="drop(event)">
 					<img src="images/marker-icon-red.png" />
 					<label id="idUser2"></label>
 				</div>

@@ -1,9 +1,10 @@
 #wrap {
  margin: 0px; 
- padding: 10px; 
+ /* padding: 1px;  */
  max-width:1000px; 
- min-width:500px;
- margin:1px;}
+ min-width:350px;
+/*  margin:1px; */
+}
 
 #header {background: #0f0;}
 
@@ -20,7 +21,7 @@
 #sidebar {
     width: 350px;
     float: left;
-    height: 500px;
+    height: 350px;
     background: #ddd;
 }
 

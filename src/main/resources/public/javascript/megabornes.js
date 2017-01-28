@@ -16,8 +16,31 @@ var etatPartieEnum = {
 };
 
 
-
 var user;
+
+var greenIcon = L.icon({
+    iconUrl: 'images/marker-icon-green.png',
+    iconSize:     [40, 53], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var redIcon = L.icon({
+    iconUrl: 'images/marker-icon-red.png',
+    iconSize:     [40, 53], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var user1 = L.marker([48.00351 - 0.001,  0.19755 - 0.001], {icon: greenIcon}).addTo(myMap);
+var user2 = L.marker([48.00351 + 0.001,  0.19755 - 0.001], {icon: redIcon}).addTo(myMap);
+
+var users = [user1, user2];
+
 var userCurrent = "inconnu";
 
 var userActif = false;
@@ -68,7 +91,7 @@ function loadCartesEnMains(listeJoueurs) {
 
     for (i = 0; i <  listeJoueurs.length;i++) { 
         if (userCurrent == listeJoueurs[i].id ) {  
-        	document.getElementById("idUser0").innerHTML = listeJoueurs[i].nom;
+        	document.getElementById("idUserCurrent").innerHTML = listeJoueurs[i].nom;
         	loadCartesEnMainsUser(listeJoueurs[i].listeCartesEnMain);
         }
     }
@@ -167,7 +190,7 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
         // Event
         image.addEventListener('click', function (e) {
             //  alert("Click" + e);
-            action(e.currentTarget.id);
+            action(e.currentTarget.id, false, userCurrent);
         });
         
         div.appendChild(image);
@@ -178,7 +201,7 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
 
 
 
-function action(id) {
+function action(id, etat, user) {
 	
 	if (!userActif) {
 		window.Alert("Le joueur n'est pas actif!");
@@ -197,7 +220,7 @@ function action(id) {
         }
     };
 
-    xhttp.open('GET', "http://localhost:4567/api/parties/joueurs/" + userCurrent + "/action/" + id + "/false/toto", true);
+    xhttp.open('GET', "http://localhost:4567/api/parties/joueurs/" + userCurrent + "/action/" + id + "/" + etat + "/" + user, true);
     xhttp.send(null);
 }
 
@@ -255,6 +278,8 @@ function getJoueur() {
                 user =  L.marker([48.00351,  0.19755]).addTo(myMap);
                 user.bindPopup("<b>" + userCurrent + "</b><br />").openPopup();
 
+                document.getElementById("idUserCurrent").innerHTML = userCurrent;
+                
                 inscrireJoueur(userCurrent);
 
             } catch (e) {
@@ -349,14 +374,35 @@ function myCallback() {
                 	return;
                 }
                 
+                var etatPartieOld = etatPartie;
+                 
                 displayEtatJeu(result[0].etat);
                 
+                if (etatPartie != etatPartieOld && etatPartieEnum.enCours == etatPartie) {
+                	alert("OK");
+                	var idx = 0;
+                	for (i = 0; i < result[0].listeJoueurs.length; i++) {
+	                    if (result[0].listeJoueurs[i].id == userCurrent) {
+	                    	document.getElementById("idUserCurrent").innerHTML = result[0].listeJoueurs[i].id;
+	                    } else {
+	                    	document.getElementById("idUser" + idx).innerHTML = result[0].listeJoueurs[i].id;
+	                    	var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
+	                    	var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
+	                    	var newLatLng = new L.LatLng(lat, longi);
+	                    	users[idx].setLatLng(newLatLng);
+	                    	users[idx].addTo(myMap);
+	                    	users[idx].bindPopup("<b>" + result[0].listeJoueurs[i].id + "</b><br />").openPopup();
+	                    	idx++;
+	                    }
+                	}
+                }  
+                
                 if (userCurrent != "inconnu") {
+                	var idx = 0;
 	                for (i = 0; i < result[0].listeJoueurs.length; i++) {
 	                    if (result[0].listeJoueurs[i].id == userCurrent) {
 	                    	
 	                    	var userActifMaj = false;
-	                    	
 	                    	if (result[0].listeJoueurs[i].etat == "actif") {
 	                    		userActifMaj = true;
 	                    	}
@@ -384,7 +430,7 @@ function myCallback() {
 	                                    shadowAnchor: [4, 62],  // the same for the shadow
 	                                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 	                                });
-	                                action(e.currentTarget.id);
+
 	                                var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
 	                                marker.id =  result[0].listeJoueurs[i].position.listeCommerces[j].type;
 	                                marker.addTo(myMap);
@@ -394,11 +440,16 @@ function myCallback() {
 	                            var newLatLng = new L.LatLng(lat, longi);
 	                            user.setLatLng(newLatLng);
 	                            imgEtat.src = "cartes/FeuVert.jpg";
-	                            
+        
 	                            loadCartesEnMainsUser(result[0].listeJoueurs[i].listeCartesEnMain);
 	                        }
 		                    userActif = userActifMaj;
-		                    break;
+		                    //break;
+	                    } else {
+                            var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
+                            var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
+                            var newLatLng = new L.LatLng(lat, longi);
+                            users[idx].setLatLng(newLatLng);
 	                    }
 
 	                }
@@ -462,7 +513,9 @@ function drag(ev) {
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    alert(data);
+    
+    action(date, true, userCurrent);
+    // alert(data);
     //ev.target.appendChild(document.getElementById(data));
 }
 
