@@ -28,7 +28,7 @@
 							onclick="rejoindre();">
 					</ul>
 				</div>
-				<div id="div0">
+				<div id="div0" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<img src="images/marker-icon-blue.png" />
 					<label id="idUser0"></label>
 				</div>				
@@ -45,6 +45,9 @@
 				<div id="cartesUser"></div>
 				<div id="boutonUser">
 					<ul id="list-image1" style="height: 100%;">
+			            <select id="idAffecterA">
+			            </select>
+										
 						<input id="btnAffecter" type="button" value="Affecter à"
 							onclick="affecterA();">
 						<input id="btnJouer" type="button" value="Jouer" onclick="play();">
@@ -53,13 +56,5 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div id="id_carte"> -->
-		<!--   <select name="thelist" onChange="combo(this, 'theinput')"> -->
-		<!--     <option>un</option> -->
-		<!--     <option>deux</option> -->
-		<!--     <option>trois</option> -->
-		<!--   </select>  -->
-		<!--   <input id="updMap" type="button" value="Capacity Chart" onclick="refreshMap();"> -->
-		<!-- </div> -->
 </body>
 </html>

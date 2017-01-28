@@ -156,6 +156,13 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
         
         image.id = listeCartesEnMain[j].idCarte;
         image.className = "carte";
+        image.draggable = true;
+        // Event
+        image.addEventListener('dragstart', function (ev) {
+            // alert("Click" + e);
+            ev.dataTransfer.setData("text", ev.currentTarget.id);
+            
+        });
         
         // Event
         image.addEventListener('click', function (e) {
@@ -377,7 +384,7 @@ function myCallback() {
 	                                    shadowAnchor: [4, 62],  // the same for the shadow
 	                                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 	                                });
-	
+	                                action(e.currentTarget.id);
 	                                var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
 	                                marker.id =  result[0].listeJoueurs[i].position.listeCommerces[j].type;
 	                                marker.addTo(myMap);
@@ -443,3 +450,19 @@ function affecterA() {
 
 function play() {
 }
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    alert(data);
+    //ev.target.appendChild(document.getElementById(data));
+}
+
