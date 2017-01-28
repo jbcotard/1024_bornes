@@ -40,13 +40,19 @@ public class Main {
 
         // initialisation circuit
         Gson gson = new Gson();
-        URL resourceCircuit = Main.class.getClassLoader().getResource("circuitcomplet.json");
-        Position[] positions = gson.fromJson(new FileReader(resourceCircuit.getPath()), Position[].class);
+        // FIX lecture ressource dans jar
+        InputStream resourceCircuit = ClassLoader.getSystemResourceAsStream("circuitcomplet.json");
+        Position[] positions = gson.fromJson( new BufferedReader(new InputStreamReader(resourceCircuit)), Position[].class);
+        //URL resourceCircuit = Main.class.getClassLoader().getResource("circuitcomplet.json");
+        //Position[] positions = gson.fromJson(new FileReader(resourceCircuit.getPath()), Position[].class);
         megaBorne.setListePosition(Arrays.asList(positions));
         
         // initialisation cartes
-        URL resourceCartes = Main.class.getClassLoader().getResource("cartes.json");
-        Carte[] cartes = gson.fromJson(new FileReader(resourceCartes.getPath()), Carte[].class);
+        // FIX lecture ressource dans jar
+        InputStream resourceCartes = ClassLoader.getSystemResourceAsStream("cartes.json");
+        Carte[] cartes = gson.fromJson(new BufferedReader(new InputStreamReader(resourceCartes)), Carte[].class);
+        //URL resourceCartes = Main.class.getClassLoader().getResource("cartes.json");
+        //Carte[] cartes = gson.fromJson(new FileReader(resourceCartes.getPath()), Carte[].class);
         JeuCarte jeuCartes = new JeuCarte();
         jeuCartes.setListeCartes(Arrays.asList(cartes));
         megaBorne.setJeuCartes(jeuCartes);
@@ -79,7 +85,7 @@ public class Main {
 
     }
 
-    private void initDataPagesJeunes() {
+    private void initDataPagesJaunes() {
          /*
         List<String> listeTypeCommerce = Arrays.asList("Hopital", "Gare", "Gendarmerie", "Police", "Prefecture", "Carrossier", "Station%20Essence", "Garagiste",
                 "DDE", "Mairie", "Bar");
