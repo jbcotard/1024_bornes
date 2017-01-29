@@ -67,4 +67,15 @@ public class Position {
     public void addCommerce(Commerce commerce) {
         listeCommerces.add(commerce);
     }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "nom='" + nom + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", positionBorne=" + positionBorne +
+                ", listeCommerces=" + listeCommerces +
+                '}';
+    }
 }

@@ -256,6 +256,18 @@ etat = EtatPartie.termine;
         //System.out.println(carte.getValeur() + " " + carte.getIdCarte()
         //+ " " +carte.getEtat());
 
+
+        StringBuilder msgOut = new StringBuilder();
+        msgOut.append("  > joueur [").append(jid).append("] joue la carte [").append(carte).append("] ").toString();
+        if (!"toto".equals(jidAdversaire)) {
+            msgOut.append("  contre le joueur [").append(jidAdversaire).append("] ").toString();
+        }
+        if (defausse) {
+            msgOut.append(" => defausse "  );
+        }
+        System.out.println(msgOut.toString()  );
+
+
         int resultat = 0;
 
         if (defausse) {

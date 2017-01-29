@@ -99,21 +99,26 @@ public class PartieRoute {
         boolean defausse = Boolean.valueOf(request.params("defausse"));
 
 
-        StringBuilder msgOut = new StringBuilder();
-        msgOut.append("  >> joueur [").append(jid).append("] joue la carte [").append(idCarte).append("] ").toString();
-        if (!"toto".equals(jidAdversaire)) {
-            msgOut.append("  contre le joueur [").append(jidAdversaire).append("] ").toString();
-        }
-        if (defausse) {
-            msgOut.append(" => defausse "  );
-        }
-        System.out.println(msgOut.toString()  );
+        //StringBuilder msgOut = new StringBuilder();
+        //msgOut.append("  >> joueur [").append(jid).append("] joue la carte [").append(idCarte).append("] ").toString();
+        //if (!"toto".equals(jidAdversaire)) {
+        //    msgOut.append("  contre le joueur [").append(jidAdversaire).append("] ").toString();
+        //}
+        //if (defausse) {
+        //    msgOut.append(" => defausse "  );
+        //}
+        //System.out.println(msgOut.toString()  );
 
 
         int resultat = MegaBorne.INSTANCE.getPartie().processActionJoueur(jid,idCarte,defausse,jidAdversaire);
 
         if (resultat == 0) {
-            System.out.println(" >> action validée ! ");
+            //System.out.println(" >> action validée ! ");
+
+            System.out.printf(" >> joueur [%s] a parcourru %d km - %s%n",
+                    MegaBorne.INSTANCE.getPartie().getJoueurCourant().getId(),
+                    MegaBorne.INSTANCE.getPartie().getJoueurCourant().getNbBornesParcourues(),
+                    MegaBorne.INSTANCE.getPartie().getJoueurCourant().getPosition());
             MegaBorne.INSTANCE.getPartie().joueurSuivant();
             System.out.println("Tour du joueur [" + MegaBorne.INSTANCE.getPartie().getJoueurCourant().getId() + "]" );
         } else {
@@ -131,7 +136,7 @@ public class PartieRoute {
 
         Carte carte = MegaBorne.INSTANCE.getPartie().processPioche(jid,typeCommerce);
 
-        System.out.println("  >> joueur [" + jid + "] pioche chez [" + typeCommerce + "] la carte [" + carte + "]" );
+        System.out.println("  > joueur [" + jid + "] pioche chez [" + typeCommerce + "] la carte [" + carte + "]" );
 
         return carte;
     }
