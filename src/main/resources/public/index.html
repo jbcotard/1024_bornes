@@ -30,26 +30,22 @@
 				</div>
 				<div id="divCurrent"  ondragover="allowDrop(event)">
 					<img src="images/marker-icon-blue.png" />
-					<label id="idUserCurrent"></label>
+					<label id="idUserCurrent"></label>&nbsp;/&nbsp;<label id="idMapCurrent"></label>
+					<div id="cartesExposeesCurrent"></div>
 				</div>				
-				<div id="div0" ondrop="drop(event)">
+				<div id="div0" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<img src="images/marker-icon-green.png" />
-					<label id="idUser0"></label>
+					<label id="idUser0"></label>&nbsp;/&nbsp;<label id="idMapUser0"></label>
 				</div>
-				<div id="div1" ondrop="drop(event)">
+				<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
 					<img src="images/marker-icon-red.png" />
-					<label id="idUser2"></label>
+					<label id="idUser1"></label>&nbsp;/&nbsp;<label id="idMapUser1"></label>
 				</div>
 			</div>
 			<div id="footer">
 				<div id="cartesUser"></div>
 				<div id="boutonUser">
-					<ul id="list-image1" style="height: 100%;">
-			            <select id="idAffecterA">
-			            </select>
-										
-						<input id="btnAffecter" type="button" value="Affecter à"
-							onclick="affecterA();">
+					<ul id="list-image1" style="height: 100%;">			           
 						<input id="btnJouer" type="button" value="Jouer" onclick="play();">
 					</ul>
 

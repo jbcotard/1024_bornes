@@ -15,7 +15,6 @@ var etatPartieEnum = {
 	enAttenteJoueur:3		
 };
 
-
 var user;
 
 var greenIcon = L.icon({
@@ -39,14 +38,29 @@ var redIcon = L.icon({
 var user1 = L.marker([48.00351 - 0.001,  0.19755 - 0.001], {icon: greenIcon}).addTo(myMap);
 var user2 = L.marker([48.00351 + 0.001,  0.19755 - 0.001], {icon: redIcon}).addTo(myMap);
 
+// Marker pour les autres joueurs.
 var users = [user1, user2];
+
+var idMapUser0 = document.getElementById("idMapUser0");
+var idMapUser1 = document.getElementById("idMapUser1");
+
+var mapUsers = [idMapUser0, idMapUser1];
 
 var userCurrent = "inconnu";
 
+// L'utilisateur courant est-il actif.
 var userActif = false;
+
+// Etat de la partie.
 var etatPartie = etatPartieEnum.enAttenteJoueur;
 
 var imgEtat = document.getElementById("idEtat");
+
+// Lieux courant pour le joueur.
+var markerCurrent = document.getElementById("idMapCurrent");
+
+// Div des cartes Exposes pour le joueur.
+var cartesExposeesCurrent = document.getElementById("cartesExposeesCurrent");
 
 var options = {
     vehicle: L.Mappy.Vehicles.comcar,
@@ -106,77 +120,8 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
     for (j = 0; j <  listeCartesEnMain.length;j++) {
         var image = document.createElement("img");
         
-        if (listeCartesEnMain[j].valeur == "Feu vert") {
-            image.src = "cartes/FeuVert.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Feu rouge") {
-            image.src = "cartes/FeuRouge.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "256") {
-            image.src = "cartes/256Bornes.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "128") {
-            image.src = "cartes/128Bornes.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "96") {
-            image.src = "cartes/96Bornes.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "64") {
-            image.src = "cartes/64Bornes.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "32") {
-            image.src = "cartes/32Bornes.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Roue de secours") {
-            image.src = "cartes/RouDeSecours.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Réparation") {
-            image.src = "cartes/Reparations.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Fin de limitation de vitesse") {
-            image.src = "cartes/FinLimitationVitesse.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Essence") {
-            image.src = "cartes/Essence.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Panne d'essence") {
-            image.src = "cartes/PanneEssence.jpg";
-        }
-        if (listeCartesEnMain[j].valeur == "Crevaison") {
-            image.src = "cartes/Crevaison.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Accident de la route") {
-            image.src = "cartes/Accident.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Limitation de vitesse") {
-            image.src = "cartes/LimitationVitesse.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Increvable") {
-            image.src = "cartes/Increvable.jpg";
-        }
-        
-        if (listeCartesEnMain[j].valeur == "Camion-citerne") {
-            image.src = "cartes/CamionCiterne.jpg";
-        }
-
-        if (listeCartesEnMain[j].valeur == "As du volant") {
-            image.src = "cartes/AsDuVolant.jpg";
-        }        
-        
+        setImage(image, listeCartesEnMain[j].valeur);
+                
         image.id = listeCartesEnMain[j].idCarte;
         image.className = "carte";
         image.draggable = true;
@@ -199,7 +144,119 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
     
 }
 
+/**
+ * Affichage des cartes exposés pour l'utilisateur.
+ * @param div
+ * @param listeCartesExposees
+ * @returns
+ */
+function loadCartesExposees(div, listeCartesExposees) {
+	console.log("loadCartesExposes");
+    
+    removeAllItems(div);
+    
+    var divImage = document.createElement("div"); 
+    for (j = 0; j <  listeCartesExposees.length;j++) {
+    	var image = document.createElement("img");
+    
+    	setImage(image, listeCartesExposees[j].valeur);
+            
+    	image.id = listeCartesExposees[j].idCarte;
+    	image.className = "carte";
+    	divImage.appendChild(image);
+    }
+    div.appendChild(divImage);
+} 
 
+/**
+ * 
+ * @param image objet Image 
+ * @param valeur la valeur
+ * @returns
+ */
+function setImage(image, valeur) {
+	
+	switch (valeur) {
+	
+	case "Feu vert":
+        image.src = "cartes/FeuVert.jpg";
+		break;
+    
+	case "Feu rouge":
+        image.src = "cartes/FeuRouge.jpg";
+    break;
+    
+	case "256":
+        image.src = "cartes/256Bornes.jpg";
+        break;
+	case "128":
+        image.src = "cartes/128Bornes.jpg";
+        break;
+	case "96":
+        image.src = "cartes/96Bornes.jpg";
+        break;
+    
+	case "64":
+        image.src = "cartes/64Bornes.jpg";
+        break;
+    
+	case  "32":
+        image.src = "cartes/32Bornes.jpg";
+        break;
+    
+	case "Roue de secours":
+        image.src = "cartes/RouDeSecours.jpg";
+        break;
+    
+	case "Réparation":
+        image.src = "cartes/Reparations.jpg";
+        break;
+    
+    case "Fin de limitation de vitesse":
+        image.src = "cartes/FinLimitationVitesse.jpg";
+        break;
+    
+    case "Essence":
+        image.src = "cartes/Essence.jpg";
+        break;
+    
+    case "Panne d’essence":
+        image.src = "cartes/PanneEssence.jpg";
+        break;
+        
+    case "Crevaison":
+        image.src = "cartes/Crevaison.jpg";
+        break;
+    
+    case "Accident de la route":
+        image.src = "cartes/Accident.jpg";
+        break;
+    
+    case "Limitation de vitesse":
+        image.src = "cartes/LimitationVitesse.jpg";
+        break;
+    
+    case "Increvable":
+        image.src = "cartes/Increvable.jpg";
+        break;
+    
+    case "Camion-citerne":
+        image.src = "cartes/CamionCiterne.jpg";
+        break;
+
+    case "As du volant":
+        image.src = "cartes/AsDuVolant.jpg";
+        break;
+        
+    case "Prioritaire":
+        image.src = "cartes/Prioritaire.jpg";
+        break;        
+
+	default:
+		console.log(valeur);
+	break;
+	}
+}
 
 function action(id, etat, user) {
 	
@@ -379,7 +436,6 @@ function myCallback() {
                 displayEtatJeu(result[0].etat);
                 
                 if (etatPartie != etatPartieOld && etatPartieEnum.enCours == etatPartie) {
-                	alert("OK");
                 	var idx = 0;
                 	for (i = 0; i < result[0].listeJoueurs.length; i++) {
 	                    if (result[0].listeJoueurs[i].id == userCurrent) {
@@ -392,6 +448,8 @@ function myCallback() {
 	                    	users[idx].setLatLng(newLatLng);
 	                    	users[idx].addTo(myMap);
 	                    	users[idx].bindPopup("<b>" + result[0].listeJoueurs[i].id + "</b><br />").openPopup();
+	                    	
+	                    	mapUsers[idx].innerHTML = result[0].listeJoueurs[i].position.nom;
 	                    	idx++;
 	                    }
                 	}
@@ -411,6 +469,8 @@ function myCallback() {
 	                    	if (userActifMaj != userActif ) {
 	                    		// if (result[0].listeJoueurs[i].etat == "actif" && userActif == false) {
 	                            userActif = true;
+	                            
+	                            // affichage des commerces.
 	                            for (j = 0; j <  result[0].listeJoueurs[i].position.listeCommerces.length;j++) {
 	
 	                                var lat = result[0].listeJoueurs[i].position.listeCommerces[j].latitude;
@@ -440,18 +500,26 @@ function myCallback() {
 	                            var newLatLng = new L.LatLng(lat, longi);
 	                            user.setLatLng(newLatLng);
 	                            imgEtat.src = "cartes/FeuVert.jpg";
+	                            
+	                            markerCurrent.innerHTML = result[0].listeJoueurs[i].position.nom;
         
 	                            loadCartesEnMainsUser(result[0].listeJoueurs[i].listeCartesEnMain);
+	                            
+	                            loadCartesExposees(cartesExposeesCurrent, result[0].listeJoueurs[i].listeCartesExposees);
 	                        }
 		                    userActif = userActifMaj;
 		                    //break;
 	                    } else {
                             var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
                             var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
-                            var newLatLng = new L.LatLng(lat, longi);
-                            users[idx].setLatLng(newLatLng);
+                            
+                            var lstLatLn = users[idx].getLatLng();
+                            if (lstLatLn.lat != lat || lstLatLn.lng != longi) {                            
+                            	var newLatLng = new L.LatLng(lat, longi);
+                            	users[idx].setLatLng(newLatLng);
+                            	mapUsers[idx].innerHTML = result[0].listeJoueurs[i].position.nom;
+                            }
 	                    }
-
 	                }
 	                
 	                // Une partie en cours mais l'utilisateur est inactif (En attente).
@@ -479,7 +547,7 @@ function myCallback() {
 function displayEtatJeu(etat) {
     switch (etat) {
 	case "enAttenteJoueur":
-		etatPartie = etatPartieEnum.enAttenteJoueur; 
+		etatPartie = etatPartieEnum.enAttenteJoueur;
 		imgEtat.src = "cartes/FeuOrange.jpg";
 		break;
 	case "enCours":
@@ -489,15 +557,13 @@ function displayEtatJeu(etat) {
 	case "termine":
 		imgEtat.src = "cartes/FeuRouge.jpg";
 		etatPartie = etatPartieEnum.termine;
+		break;
 	default:
 		break;
 	}
 
 }
 
-function affecterA() {
-
-}
 
 function play() {
 }
@@ -511,10 +577,19 @@ function drag(ev) {
 }
 
 function drop(ev) {
+	try {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     
-    action(date, true, userCurrent);
+    var target = ev.currentTarget.id;
+    
+    var idx = target.substr(3);
+    var label = document.getElementById("idUser" + idx);
+    var userName =label.innerHTML;    
+    action(data, false, userName);
+	} catch(e) {
+		console.log(e);
+	}
     // alert(data);
     //ev.target.appendChild(document.getElementById(data));
 }
