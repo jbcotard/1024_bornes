@@ -220,7 +220,7 @@ function action(id, etat, user) {
         }
     };
 
-    xhttp.open('GET', "http://localhost:4567/api/parties/joueurs/" + userCurrent + "/action/" + id + "/" + etat + "/" + user, true);
+    xhttp.open('GET', "api/parties/joueurs/" + userCurrent + "/action/" + id + "/" + etat + "/" + user, true);
     xhttp.send(null);
 }
 
@@ -240,7 +240,7 @@ function updatePioche() {
         }
     };
 
-    xhttp.open('GET', "http://localhost:4567/api/parties/joueurs/" + userCurrent, true);
+    xhttp.open('GET', "api/parties/joueurs/" + userCurrent, true);
     xhttp.send(null);
 }
 
@@ -259,7 +259,7 @@ function pioche(typeCommerce) {
         }
     };
 
-    xhttp.open('GET', "http://localhost:4567/api/parties/joueurs/" + userCurrent + "/pioche/" + typeCommerce, true);
+    xhttp.open('GET', "api/parties/joueurs/" + userCurrent + "/pioche/" + typeCommerce, true);
     xhttp.send(null);
 }
 
@@ -288,7 +288,7 @@ function getJoueur() {
         }
     };
 
-    xhttp.open('GET', 'http://localhost:4567/api/joueurs/generate/', true);
+    xhttp.open('GET', 'api/joueurs/generate/', true);
     xhttp.send(null);
 }
 
@@ -315,7 +315,7 @@ function inscrireJoueur(idJoueur) {
         }
     };
     // Joueur inscrie
-    xhttp.open('GET', 'http://localhost:4567/api/parties/inscrire/' + idJoueur , true);
+    xhttp.open('GET', 'api/parties/inscrire/' + idJoueur , true);
     xhttp.send(null);
 }
 
@@ -338,7 +338,7 @@ function reset() {
         }
     };
     // Joueur inscrie
-    xhttp.open('GET', 'http://localhost:4567/api/parties/reset/', true);
+    xhttp.open('GET', 'api/parties/reset/', true);
     xhttp.send(null);
 }
 
@@ -467,7 +467,7 @@ function myCallback() {
         }
     };
 
-    xhttp.open('GET', 'http://localhost:4567/api/parties', true);
+    xhttp.open('GET', 'api/parties', true);
     xhttp.send(null);
 }
 
