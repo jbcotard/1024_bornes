@@ -28,6 +28,7 @@
 .carte  { 
     cursor: pointer;
 	margin-left: 5px; 
+	margin-top: 5px;
 	border-style: groove;
 	height: 60px;
 	width: 40px;
@@ -37,6 +38,26 @@
 	border-style: solid;     
     border-width: 1px;
     margin: 2px;
+    margin-left: 5px;
     background-color: darkgray;
     border-radius: 4px;
+}
+
+.imageEtat {
+	margin-top:5px;
+	margin-left:5px;
+}
+
+.cartesUser {
+	float:left;
+	width:50%
+}
+
+.boutonUser {
+	float:right;
+	width:50%
+}
+
+.footer {
+	width:100%
 }

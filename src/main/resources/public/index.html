@@ -20,13 +20,10 @@
 			</div>
 			<div id="sidebar">
 				<div id="div1">
-					<ul id="list-image1" style="height: 100%;">
-						<img src="cartes/FeuRouge.jpg" id="idEtat" />
-						<input id="updMap" type="button" value="Reset"
-							onclick="refreshMap();">
-						<input id="idRejoindre" type="button" value="Rejoindre"
-							onclick="rejoindre();">
-					</ul>
+					<!-- <ul id="list-image1" style="height: 100%;"> -->
+						<img src="cartes/FeuRouge.jpg" id="idEtat" class="imageEtat" />
+						
+					<!-- </ul> -->
 				</div>
 				<div id="divCurrent" class="user">
 					<img src="images/marker-icon-blue.png" />
@@ -45,8 +42,13 @@
 				</div>
 			</div>
 			<div id="footer">
-				<div id="cartesUser"></div>
+				<div id="cartesUser" class="cartesUser"></div>
 				<div id="boutonUser">
+					<input id="updMap" type="button" value="Reset"
+							onclick="refreshMap();">
+					<input id="idRejoindre" type="button" value="Rejoindre"
+							onclick="rejoindre();">
+				
 				</div>
 			</div>
 		</div>
