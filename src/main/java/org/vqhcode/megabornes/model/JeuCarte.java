@@ -47,7 +47,10 @@ public class JeuCarte {
     }
 
     public Carte getCarte(String s) {
-        System.out.println(s);
+
+        //System.out.println("    carte piochee : " + s);
+
+
         Carte carteTrouve = null;
         boolean nonTrouve = false;
         int compteur = 0;
@@ -61,10 +64,16 @@ public class JeuCarte {
             compteur++;
         }
 
+
+        //System.out.println("    carte à mettre en main : " + carteTrouve);
+
         return carteTrouve;
     }
 
     public Carte getCarteHasard(List<String> listeCartesHasard) {
+
+        //System.out.println("    cartes possibles de la pioche : " );
+        //listeCartesHasard.stream().forEach(System.out::println);
 
         List<Carte> listeCartesFiltrees = new ArrayList<Carte>();
         for (Carte carte:
@@ -77,6 +86,8 @@ public class JeuCarte {
         Random random = new Random();
         int i1 = random.nextInt(listeCartesFiltrees.size());
 
+
+        //System.out.println("    carte à mettre en main : " + listeCartesFiltrees.get(i1));
 
         return listeCartesFiltrees.get(i1);
     }

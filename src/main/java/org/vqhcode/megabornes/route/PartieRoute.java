@@ -118,7 +118,8 @@ public class PartieRoute {
             System.out.printf(" >> joueur [%s] a parcourru %d km - %s%n",
                     MegaBorne.INSTANCE.getPartie().getJoueurCourant().getId(),
                     MegaBorne.INSTANCE.getPartie().getJoueurCourant().getNbBornesParcourues(),
-                    MegaBorne.INSTANCE.getPartie().getJoueurCourant().getPosition());
+                    MegaBorne.INSTANCE.getPartie().getJoueurCourant().getPosition().toStringWithoutListeCommerces());
+
             MegaBorne.INSTANCE.getPartie().joueurSuivant();
             System.out.println("Tour du joueur [" + MegaBorne.INSTANCE.getPartie().getJoueurCourant().getId() + "]" );
         } else {

@@ -78,4 +78,13 @@ public class Position {
                 ", listeCommerces=" + listeCommerces +
                 '}';
     }
+
+    public String toStringWithoutListeCommerces() {
+        return "Position{" +
+                "nom='" + nom + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", positionBorne=" + positionBorne +
+                '}';
+    }
 }

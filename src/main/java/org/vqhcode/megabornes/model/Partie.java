@@ -535,7 +535,7 @@ etat = EtatPartie.termine;
                 carte = jeuCarte.getCarteHasard(Arrays.asList("Reparation","As du volant"));
 
                 break;
-            case "Station%20essence" :
+            case "Station Essence" :
 
                 carte = jeuCarte.getCarteHasard(Arrays.asList("Essence","Camion-citerne"));
                 break;
