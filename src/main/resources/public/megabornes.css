@@ -32,3 +32,11 @@
 	height: 60px;
 	width: 40px;
 } 
+         
+.user {
+	border-style: solid;     
+    border-width: 1px;
+    margin: 2px;
+    background-color: darkgray;
+    border-radius: 4px;
+}

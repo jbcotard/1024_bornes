@@ -28,17 +28,17 @@
 							onclick="rejoindre();">
 					</ul>
 				</div>
-				<div id="divCurrent"  ondragover="allowDrop(event)">
+				<div id="divCurrent" class="user">
 					<img src="images/marker-icon-blue.png" />
 					<label id="idUserCurrent"></label>&nbsp;/&nbsp;<label id="idMapCurrent"></label>
 					<div id="cartesExposeesCurrent"></div>
 				</div>				
-				<div id="div0" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<div id="div0" ondrop="drop(event)" ondragover="allowDrop(event)" class="user">
 					<img src="images/marker-icon-green.png" />
 					<label id="idUser0"></label>&nbsp;/&nbsp;<label id="idMapUser0"></label>
 					<div id="cartesExposees0"></div>
 				</div>
-				<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+				<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" class="user">
 					<img src="images/marker-icon-red.png" />
 					<label id="idUser1"></label>&nbsp;/&nbsp;<label id="idMapUser1"></label>
 					<div id="cartesExposees1"></div>
@@ -47,10 +47,6 @@
 			<div id="footer">
 				<div id="cartesUser"></div>
 				<div id="boutonUser">
-					<ul id="list-image1" style="height: 100%;">			           
-						<input id="btnJouer" type="button" value="Jouer" onclick="play();">
-					</ul>
-
 				</div>
 			</div>
 		</div>
