@@ -62,6 +62,11 @@ var markerCurrent = document.getElementById("idMapCurrent");
 // Div des cartes Exposes pour le joueur.
 var cartesExposeesCurrent = document.getElementById("cartesExposeesCurrent");
 
+var cartesExposees0 = document.getElementById("cartesExposees0");
+var cartesExposees1 = document.getElementById("cartesExposees1");
+
+var cartesExposees = [cartesExposees0, cartesExposees1];
+
 var options = {
     vehicle: L.Mappy.Vehicles.comcar,
     cost: "length", // or "time" or "price"
@@ -519,6 +524,8 @@ function myCallback() {
                             	users[idx].setLatLng(newLatLng);
                             	mapUsers[idx].innerHTML = result[0].listeJoueurs[i].position.nom;
                             }
+                            
+                            loadCartesExposees(cartesExposees[idx], result[0].listeJoueurs[i].listeCartesExposees);
 	                    }
 	                }
 	                
