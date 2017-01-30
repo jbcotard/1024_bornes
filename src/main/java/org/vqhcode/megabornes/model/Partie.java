@@ -465,8 +465,9 @@ etat = EtatPartie.termine;
                     if (joueur.isCarteExposee("Feu vert") == null &&
                             joueur.isCarteExposee("Prioritaire") == null ) {
                         resultat = 1;
+                    } else {
+                    	resultat  = calculAvancement(joueur,carte.getValeur());
                     }
-                    resultat = calculAvancement(joueur,carte.getValeur());
                     if (resultat == 0) {
                         joueur.delCartesEnMain(carte);
                         jeuCarte.ajoutPioche(carte);
