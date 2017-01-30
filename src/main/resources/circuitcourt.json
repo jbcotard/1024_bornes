@@ -1,0 +1,440 @@
+[
+  {
+    "nom": "Le Mans",
+    "latitude": 48.00367,
+    "longitude": 0.19788,
+    "positionBorne": 0,
+    "listeCommerces": [
+      {
+        "type": "Hopital",
+        "latitude": 47.999644,
+        "longitude": 0.200337,
+        "distance": 483.0
+      },
+      {
+        "type": "Gare",
+        "latitude": 47.997834,
+        "longitude": 0.188439,
+        "distance": 956.0
+      },
+      {
+        "type": "Gendarmerie",
+        "latitude": 47.996453,
+        "longitude": 0.206477,
+        "distance": 1026.0
+      },
+      {
+        "type": "Police",
+        "latitude": 47.995448,
+        "longitude": 0.202273,
+        "distance": 970.0
+      },
+      {
+        "type": "Prefecture",
+        "latitude": 48.002143,
+        "longitude": 0.198571,
+        "distance": 177.0
+      },
+      {
+        "type": "Carrossier",
+        "latitude": 48.054543,
+        "longitude": 0.165389,
+        "distance": 6151.0
+      },
+      {
+        "type": "Station%20Essence",
+        "latitude": 48.002365,
+        "longitude": 0.184957,
+        "distance": 972.0
+      },
+      {
+        "type": "Garagiste",
+        "latitude": 47.972221,
+        "longitude": 0.174476,
+        "distance": 3906.0
+      },
+      {
+        "type": "DDE",
+        "latitude": 48.43168,
+        "longitude": 0.093243,
+        "distance": 48219.0
+      },
+      {
+        "type": "Mairie",
+        "latitude": 48.004115,
+        "longitude": 0.198009,
+        "distance": 50.0
+      },
+      {
+        "type": "Bar",
+        "latitude": 48.005043,
+        "longitude": 0.196492,
+        "distance": 184.0
+      }
+    ]
+  },
+  {
+    "nom": "Ecommoy",
+    "latitude": 47.8231,
+    "longitude": 0.2875,
+    "positionBorne": 0,
+    "listeCommerces": [
+      {
+        "type": "Hopital",
+        "latitude": 47.864732,
+        "longitude": 0.465959,
+        "distance": 14099.0
+      },
+      {
+        "type": "Gare",
+        "latitude": 47.825853,
+        "longitude": 0.268864,
+        "distance": 1424.0
+      },
+      {
+        "type": "Gendarmerie",
+        "latitude": 47.824258,
+        "longitude": 0.288289,
+        "distance": 141.0
+      },
+      {
+        "type": "Police",
+        "latitude": 47.987872,
+        "longitude": 0.211895,
+        "distance": 19168.0
+      },
+      {
+        "type": "Prefecture",
+        "latitude": 48.002143,
+        "longitude": 0.198571,
+        "distance": 20982.0
+      },
+      {
+        "type": "Carrossier",
+        "latitude": 47.955802,
+        "longitude": 0.17973,
+        "distance": 16801.0
+      },
+      {
+        "type": "Station%20Essence",
+        "latitude": 47.836223,
+        "longitude": 0.264757,
+        "distance": 2238.0
+      },
+      {
+        "type": "Garagiste",
+        "latitude": 47.961365,
+        "longitude": 0.186426,
+        "distance": 17121.0
+      },
+      {
+        "type": "Mairie",
+        "latitude": 47.827331,
+        "longitude": 0.27595,
+        "distance": 982.0
+      },
+      {
+        "type": "Bar",
+        "latitude": 47.828195,
+        "longitude": 0.273666,
+        "distance": 1177.0
+      }
+    ]
+  },
+  {
+    "nom": "Château du Loir",
+    "latitude": 47.6996,
+    "longitude": 0.4321,
+    "positionBorne": 0,
+    "listeCommerces": [
+      {
+        "type": "Hopital",
+        "latitude": 47.691247,
+        "longitude": 0.420732,
+        "distance": 784.0
+      },
+      {
+        "type": "Gare",
+        "latitude": 47.683777,
+        "longitude": 0.420116,
+        "distance": 1974.0
+      },
+      {
+        "type": "Gendarmerie",
+        "latitude": 47.699267,
+        "longitude": 0.412899,
+        "distance": 1437.0
+      },
+      {
+        "type": "Police",
+        "latitude": 47.695412,
+        "longitude": 0.416341,
+        "distance": 1267.0
+      },
+      {
+        "type": "Prefecture",
+        "latitude": 47.393524,
+        "longitude": 0.693157,
+        "distance": 39271.0
+      },
+      {
+        "type": "Carrossier",
+        "latitude": 47.546332,
+        "longitude": 0.532767,
+        "distance": 18637.0
+      },
+      {
+        "type": "Station%20Essence",
+        "latitude": 47.687136,
+        "longitude": 0.436306,
+        "distance": 1421.0
+      },
+      {
+        "type": "Garagiste",
+        "latitude": 47.740457,
+        "longitude": 0.586567,
+        "distance": 12416.0
+      },
+      {
+        "type": "DDE",
+        "latitude": 47.794907,
+        "longitude": 1.067967,
+        "distance": 48709.0
+      },
+      {
+        "type": "Mairie",
+        "latitude": 47.695443,
+        "longitude": 0.417732,
+        "distance": 1170.0
+      },
+      {
+        "type": "Bar",
+        "latitude": 47.696181,
+        "longitude": 0.418197,
+        "distance": 1107.0
+      }
+    ]
+  },
+  {
+    "nom": "Neuillé Pont Pierre",
+    "latitude": 47.5468,
+    "longitude": 0.5537,
+    "positionBorne": 0,
+    "listeCommerces": [
+      {
+        "type": "Hopital",
+        "latitude": 47.437991,
+        "longitude": 0.646158,
+        "distance": 13951.0
+      },
+      {
+        "type": "Gare",
+        "latitude": 47.42817,
+        "longitude": 0.696604,
+        "distance": 17008.0
+      },
+      {
+        "type": "Gendarmerie",
+        "latitude": 47.546332,
+        "longitude": 0.532767,
+        "distance": 1571.0
+      },
+      {
+        "type": "Police",
+        "latitude": 47.388257,
+        "longitude": 0.658224,
+        "distance": 19300.0
+      },
+      {
+        "type": "Prefecture",
+        "latitude": 47.165948,
+        "longitude": 0.243501,
+        "distance": 48367.0
+      },
+      {
+        "type": "Carrossier",
+        "latitude": 47.396769,
+        "longitude": 0.648644,
+        "distance": 18144.0
+      },
+      {
+        "type": "Station%20Essence",
+        "latitude": 47.546177,
+        "longitude": 0.533997,
+        "distance": 1480.0
+      },
+      {
+        "type": "Garagiste",
+        "latitude": 47.416673,
+        "longitude": 0.718183,
+        "distance": 19030.0
+      },
+      {
+        "type": "DDE",
+        "latitude": 47.166976,
+        "longitude": 0.252511,
+        "distance": 47942.0
+      },
+      {
+        "type": "Mairie",
+        "latitude": 47.549838,
+        "longitude": 0.558567,
+        "distance": 497.0
+      },
+      {
+        "type": "Bar",
+        "latitude": 47.546736,
+        "longitude": 0.547158,
+        "distance": 491.0
+      }
+    ]
+  },
+  {
+    "nom": "Tours",
+    "latitude": 47.3943,
+    "longitude": 0.6951,
+    "positionBorne": 0,
+    "listeCommerces": [
+      {
+        "type": "Hopital",
+        "latitude": 47.389325,
+        "longitude": 0.700867,
+        "distance": 703.0
+      },
+      {
+        "type": "Gare",
+        "latitude": 47.291701,
+        "longitude": 0.734892,
+        "distance": 11795.0
+      },
+      {
+        "type": "Gendarmerie",
+        "latitude": 47.377702,
+        "longitude": 0.693835,
+        "distance": 1848.0
+      },
+      {
+        "type": "Police",
+        "latitude": 47.391399,
+        "longitude": 0.686037,
+        "distance": 754.0
+      },
+      {
+        "type": "Prefecture",
+        "latitude": 47.393524,
+        "longitude": 0.693157,
+        "distance": 169.0
+      },
+      {
+        "type": "Carrossier",
+        "latitude": 47.342193,
+        "longitude": 0.632194,
+        "distance": 7484.0
+      },
+      {
+        "type": "Station%20Essence",
+        "latitude": 47.391214,
+        "longitude": 0.697193,
+        "distance": 377.0
+      },
+      {
+        "type": "Garagiste",
+        "latitude": 47.396769,
+        "longitude": 0.648644,
+        "distance": 3507.0
+      },
+      {
+        "type": "DDE",
+        "latitude": 47.383791,
+        "longitude": 0.691207,
+        "distance": 1204.0
+      },
+      {
+        "type": "Mairie",
+        "latitude": 47.397421,
+        "longitude": 0.692581,
+        "distance": 395.0
+      },
+      {
+        "type": "Bar",
+        "latitude": 47.393414,
+        "longitude": 0.693263,
+        "distance": 169.0
+      }
+    ]
+  },
+  {
+    "nom": "Chinon",
+    "latitude": 47.1692,
+    "longitude": 0.2433,
+    "positionBorne": 0,
+    "listeCommerces": [
+      {
+        "type": "Hopital",
+        "latitude": 47.170124,
+        "longitude": 0.248338,
+        "distance": 394.0
+      },
+      {
+        "type": "Gare",
+        "latitude": 47.248597,
+        "longitude": 0.15777,
+        "distance": 10940.0
+      },
+      {
+        "type": "Gendarmerie",
+        "latitude": 47.164964,
+        "longitude": 0.246361,
+        "distance": 524.0
+      },
+      {
+        "type": "Police",
+        "latitude": 46.982919,
+        "longitude": -0.221555,
+        "distance": 40843.0
+      },
+      {
+        "type": "Prefecture",
+        "latitude": 47.165948,
+        "longitude": 0.243501,
+        "distance": 361.0
+      },
+      {
+        "type": "Carrossier",
+        "latitude": 47.020787,
+        "longitude": 0.327584,
+        "distance": 17693.0
+      },
+      {
+        "type": "Station%20Essence",
+        "latitude": 47.148776,
+        "longitude": 0.239585,
+        "distance": 2288.0
+      },
+      {
+        "type": "Garagiste",
+        "latitude": 47.174257,
+        "longitude": 0.223341,
+        "distance": 1610.0
+      },
+      {
+        "type": "DDE",
+        "latitude": 47.166976,
+        "longitude": 0.252511,
+        "distance": 738.0
+      },
+      {
+        "type": "Mairie",
+        "latitude": 47.170994,
+        "longitude": 0.258647,
+        "distance": 375.0
+      },
+      {
+        "type": "Bar",
+        "latitude": 47.166998,
+        "longitude": 0.240174,
+        "distance": 340.0
+      }
+    ]
+  }
+]

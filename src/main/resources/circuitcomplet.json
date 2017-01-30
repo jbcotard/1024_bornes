@@ -1023,80 +1023,7 @@
       }
     ]
   },
-  {
-    "nom": "Bussière Poitevine",
-    "latitude": 46.2402,
-    "longitude": 0.8962,
-    "positionBorne": 0,
-    "listeCommerces": [
-      {
-        "type": "Hopital",
-        "latitude": 46.217736,
-        "longitude": 1.076329,
-        "distance": 14079.0
-      },
-      {
-        "type": "Gare",
-        "latitude": 46.418464,
-        "longitude": 0.873065,
-        "distance": 19901.0
-      },
-      {
-        "type": "Gendarmerie",
-        "latitude": 46.106312,
-        "longitude": 0.919998,
-        "distance": 15000.0
-      },
-      {
-        "type": "Police",
-        "latitude": 46.424987,
-        "longitude": 0.868355,
-        "distance": 20658.0
-      },
-      {
-        "type": "Prefecture",
-        "latitude": 46.1208,
-        "longitude": 1.04984,
-        "distance": 17781.0
-      },
-      {
-        "type": "Carrossier",
-        "latitude": 46.212021,
-        "longitude": 1.078949,
-        "distance": 14403.0
-      },
-      {
-        "type": "Station%20Essence",
-        "latitude": 46.23241,
-        "longitude": 0.899056,
-        "distance": 893.0
-      },
-      {
-        "type": "Garagiste",
-        "latitude": 46.122273,
-        "longitude": 1.04471,
-        "distance": 17397.0
-      },
-      {
-        "type": "DDE",
-        "latitude": 46.012671,
-        "longitude": 0.670687,
-        "distance": 30694.0
-      },
-      {
-        "type": "Mairie",
-        "latitude": 46.237006,
-        "longitude": 0.901352,
-        "distance": 581.0
-      },
-      {
-        "type": "Bar",
-        "latitude": 46.237006,
-        "longitude": 0.901352,
-        "distance": 532.0
-      }
-    ]
-  },
+
   {
     "nom": "Limoges",
     "latitude": 45.85,
@@ -1470,7 +1397,7 @@
   {
     "nom": "Ussel",
     "latitude": 45.5489,
-    "longitude": 2.31,
+    "longitude": 1.5006,
     "positionBorne": 0,
     "listeCommerces": [
       {
