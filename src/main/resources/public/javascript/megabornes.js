@@ -143,12 +143,32 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
             action(e.currentTarget.id, false, userCurrent);
         });
         
+        image.addEventListener("touchstart", handleStart, false);
+        
+        image.addEventListener("touchend", handleEnd, false);
+        
+        
         div.appendChild(image);
     }
     sidebar.appendChild(div);
     
 }
 
+function handleStart(evt) {
+	evt.preventDefault();
+	console.log("handleStart");
+	console.log(evt);
+}
+
+
+function handleEnd(evt) {
+	evt.preventDefault();
+	console.log("handleEnd");
+	console.log(evt);
+	console.log(evt.changedTouches[0])
+	console.log(evt.changedTouches[0].target.id);
+	action(evt.changedTouches[0].target.id, false, userCurrent);
+}
 /**
  * Affichage des cartes exposés pour l'utilisateur.
  * @param div
