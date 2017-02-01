@@ -21,7 +21,7 @@
 #sidebar {
     width: 350px;
     float: left;
-    height: 350px;
+    height: 450px;
     background: #ddd;
 }
 
@@ -50,12 +50,17 @@
 
 .cartesUser {
 	float:left;
-	width:50%
+	width:40%
 }
 
 .boutonUser {
 	float:right;
-	width:50%
+	width:40%
+}
+
+.trash {
+	
+	width:15%
 }
 
 .footer {
