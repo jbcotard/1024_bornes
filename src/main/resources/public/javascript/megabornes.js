@@ -143,10 +143,10 @@ function loadCartesEnMainsUser(listeCartesEnMain) {
             action(e.currentTarget.id, false, userCurrent);
         });
         
-        image.addEventListener("touchstart", handleStart, false);
+        /* image.addEventListener("touchstart", handleStart, false);
         
         image.addEventListener("touchend", handleEnd, false);
-        
+        */
         
         div.appendChild(image);
     }
@@ -167,6 +167,12 @@ function handleEnd(evt) {
 	console.log(evt);
 	console.log(evt.changedTouches[0])
 	console.log(evt.changedTouches[0].target.id);
+	var target = evt.changedTouches[0].target;
+	console.log(target);
+	console.log(evt.targetTouches);
+	console.log(evt.touches);
+	//document.write('Remaining on element: ' + evt.targetTouches.length);
+    // document.write('Remaining on document: ' + evt.touches.length);
 	action(evt.changedTouches[0].target.id, false, userCurrent);
 }
 /**
@@ -605,15 +611,15 @@ function drag(ev) {
 
 function drop(ev) {
 	try {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    
-    var target = ev.currentTarget.id;
-    
-    var idx = target.substr(3);
-    var label = document.getElementById("idUser" + idx);
-    var userName =label.innerHTML;    
-    action(data, false, userName);
+	    ev.preventDefault();
+	    var data = ev.dataTransfer.getData("text");
+	    
+	    var target = ev.currentTarget.id;
+	    
+	    var idx = target.substr(3);
+	    var label = document.getElementById("idUser" + idx);
+	    var userName =label.innerHTML;    
+	    action(data, false, userName);
 	} catch(e) {
 		console.log(e);
 	}
@@ -621,3 +627,12 @@ function drop(ev) {
     //ev.target.appendChild(document.getElementById(data));
 }
 
+function onDropTrash(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    
+    var target = ev.currentTarget.id;
+    
+    action(data, true, userCurrent);
+	
+} 

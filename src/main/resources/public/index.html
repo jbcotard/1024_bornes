@@ -41,15 +41,19 @@
 					<div id="cartesExposees1"></div>
 				</div>
 			</div>
-			<div id="footer">
+			<div id="footer" height="100px">
 				<div id="cartesUser" class="cartesUser"></div>
-				<div id="boutonUser">
+				<div id="idTrash" ondrop="onDropTrash(event)" ondragover="allowDrop(event)">
+					<img src="images/trash.png" />				
+				</div>
+				<div id="boutonUser" class="boutonUser">
 					<input id="updMap" type="button" value="Reset"
 							onclick="refreshMap();">
 					<input id="idRejoindre" type="button" value="Rejoindre"
 							onclick="rejoindre();">
 				
 				</div>
+				
 			</div>
 		</div>
 </body>
