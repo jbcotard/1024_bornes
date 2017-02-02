@@ -19,42 +19,45 @@
 				<div id="example-map-1" style="width: 100%; height: 450px;"></div>
 			</div>
 			<div id="sidebar">
-				<div id="div1">
+				<div id="divTitre">
 					<!-- <ul id="list-image1" style="height: 100%;"> -->
-						<img src="cartes/FeuRouge.jpg" id="idEtat" class="imageEtat" />
-						
+					<img src="cartes/FeuRouge.jpg" id="idEtat" class="imageEtat" /> <img
+						src="images/logo.png" class="logo" />
 					<!-- </ul> -->
 				</div>
 				<div id="divCurrent" class="user">
-					<img src="images/marker-icon-blue.png" />
-					<label id="idUserCurrent"></label>&nbsp;/&nbsp;<label id="idMapCurrent"></label>
+					<img src="images/marker-icon-blue.png" class="imageUser" /> <label
+						id="idUserCurrent"></label>&nbsp;/&nbsp;<label id="idMapCurrent"></label>
 					<div id="cartesExposeesCurrent"></div>
-				</div>				
-				<div id="div0" ondrop="drop(event)" ondragover="allowDrop(event)" class="user">
-					<img src="images/marker-icon-green.png" />
-					<label id="idUser0"></label>&nbsp;/&nbsp;<label id="idMapUser0"></label>
+				</div>
+				<div id="div0" ondrop="drop(event)" ondragover="allowDrop(event)"
+					class="user">
+					<img src="images/marker-icon-green.png" class="imageUser" /> <label
+						id="idUser0"></label>&nbsp;/&nbsp;<label id="idMapUser0"></label>
 					<div id="cartesExposees0"></div>
 				</div>
-				<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" class="user">
-					<img src="images/marker-icon-red.png" />
-					<label id="idUser1"></label>&nbsp;/&nbsp;<label id="idMapUser1"></label>
+				<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"
+					class="user">
+					<img src="images/marker-icon-red.png" class="imageUser" /> <label
+						id="idUser1"></label>&nbsp;/&nbsp;<label id="idMapUser1"></label>
 					<div id="cartesExposees1"></div>
 				</div>
 			</div>
-			<div id="footer" height="100px">
+			<div id="footer"
+				style="width: 100%; margin: 0 auto; padding: 0; height: 70px; border: thin solid black;">
 				<div id="cartesUser" class="cartesUser"></div>
-				<div id="idTrash" ondrop="onDropTrash(event)" ondragover="allowDrop(event)" class="trash">
-					<img src="images/trash.png" />				
+				<div id="idTrash" ondrop="onDropTrash(event)"
+					ondragover="allowDrop(event)" class="trash">
+					<img src="images/trash.png" />
 				</div>
 				<div id="boutonUser" class="boutonUser">
 					<input id="updMap" type="button" value="Reset"
-							onclick="refreshMap();">
-					<input id="idRejoindre" type="button" value="Rejoindre"
-							onclick="rejoindre();">
-				
+						onclick="refreshMap();"> <input id="idRejoindre"
+						type="button" value="Rejoindre" onclick="rejoindre();">
 				</div>
-				
+
 			</div>
 		</div>
+	</div>
 </body>
 </html>

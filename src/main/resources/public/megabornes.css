@@ -1,10 +1,18 @@
 #wrap {
- margin: 0px; 
- /* padding: 1px;  */
- max-width:1000px; 
- min-width:350px;
-/*  margin:1px; */
+    margin: 0px;
+    /* padding: 1px;  */
+    max-width:1000px;
+    min-width:350px;
+    /*  margin:1px; */
+    /* text-align:center; */
 }
+
+.logo {
+    border-style: solid;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
 
 #header {background: #0f0;}
 
@@ -25,44 +33,56 @@
     background: #ddd;
 }
 
-.carte  { 
+.carte  {
     cursor: pointer;
-	margin-left: 5px; 
-	margin-top: 5px;
-	border-style: groove;
-	height: 60px;
-	width: 40px;
-} 
-         
+    margin-left: 5px;
+    margin-top: 5px;
+    border-style: groove;
+    height: 60px;
+    width: 40px;
+}
+
 .user {
-	border-style: solid;     
+    border-style: solid;
     border-width: 1px;
     margin: 2px;
     margin-left: 5px;
-    background-color: darkgray;
+    margin-bottom: 10px;
+    background-color: #0063ac;
     border-radius: 4px;
+    margin-right: 5px;
 }
 
 .imageEtat {
-	margin-top:5px;
-	margin-left:5px;
+    margin-top:5px;
+    margin-left:5px;
 }
 
 .cartesUser {
-	float:left;
-	width:40%
+    float:left;
+    width:60%;
+    height: 100%;
+    /* border: thin solid black; */
 }
 
 .boutonUser {
-	float:right;
-	width:40%
+    float:right;
+    width:20%;
+    /* border: thin solid black; */
+    height: 100%;
 }
 
 .trash {
-	
-	width:15%
+    /* border: thin solid black; */
+    width:10%;
+    float:left;
+    height: 100%;
 }
 
 .footer {
-	width:100%
+    width:100%
+}
+
+.imageUser {
+    margin-left: 5px;
 }
