@@ -67,6 +67,8 @@ var cartesExposees1 = document.getElementById("cartesExposees1");
 
 var cartesExposees = [cartesExposees0, cartesExposees1];
 
+var partieId = 0;
+
 var options = {
     vehicle: L.Mappy.Vehicles.comcar,
     cost: "length", // or "time" or "price"
@@ -308,7 +310,7 @@ function action(id, etat, user) {
         }
     };
 
-    xhttp.open('GET', "api/parties/joueurs/" + userCurrent + "/action/" + id + "/" + etat + "/" + user, true);
+    xhttp.open('GET', "apiv2/parties/" + partieId + "/joueurs/" + userCurrent + "/action/" + id + "/" + etat + "/" + user, true);
     xhttp.send(null);
 }
 
@@ -328,7 +330,7 @@ function updatePioche() {
         }
     };
 
-    xhttp.open('GET', "api/parties/joueurs/" + userCurrent, true);
+    xhttp.open('GET', "apiv2/parties/" + partieId + "/joueurs/" + userCurrent, true);
     xhttp.send(null);
 }
 
@@ -347,7 +349,7 @@ function pioche(typeCommerce) {
         }
     };
 
-    xhttp.open('GET', "api/parties/joueurs/" + userCurrent + "/pioche/" + typeCommerce, true);
+    xhttp.open('GET', "apiv2/parties/" + partieId + "/joueurs/" + userCurrent + "/pioche/" + typeCommerce, true);
     xhttp.send(null);
 }
 
@@ -391,6 +393,8 @@ function inscrireJoueur(idJoueur) {
                 var jsText = xhttp.responseText;
                 var tp = JSON.parse(jsText);
                
+                // id de la partie
+                partieId = tp.partieId;
                 loadItineraire(tp.circuit.listePositions);
                 
                 if (tp.etat == "enCours" ) {
@@ -400,7 +404,7 @@ function inscrireJoueur(idJoueur) {
             } catch (e) {
                 alert(e);
             }
-        }
+        }	
     };
     // Joueur inscrie
     xhttp.open('GET', 'api/parties/inscrire/' + idJoueur , true);
@@ -455,32 +459,37 @@ function myCallback() {
         if (this.readyState == 4 && this.status == 200) {
             try {
                 var jsText = xhttp.responseText;
+                
+                
+                if (jsText == "null") {
+                	return;
+                }
                 var result = JSON.parse(jsText);
                 // console.log(result);
 
-                if (result[0] == null) {
+                if (result == null) {
                 	return;
                 }
                 
                 var etatPartieOld = etatPartie;
                  
-                displayEtatJeu(result[0].etat);
+                displayEtatJeu(result.etat);
                 
                 if (etatPartie != etatPartieOld && etatPartieEnum.enCours == etatPartie) {
                 	var idx = 0;
-                	for (i = 0; i < result[0].listeJoueurs.length; i++) {
-	                    if (result[0].listeJoueurs[i].id == userCurrent) {
-	                    	document.getElementById("idUserCurrent").innerHTML = result[0].listeJoueurs[i].id;
+                	for (i = 0; i < result.listeJoueurs.length; i++) {
+	                    if (result.listeJoueurs[i].id == userCurrent) {
+	                    	document.getElementById("idUserCurrent").innerHTML = result.listeJoueurs[i].id;
 	                    } else {
-	                    	document.getElementById("idUser" + idx).innerHTML = result[0].listeJoueurs[i].id;
-	                    	var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
-	                    	var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
+	                    	document.getElementById("idUser" + idx).innerHTML = result.listeJoueurs[i].id;
+	                    	var lat = result.listeJoueurs[i].position.latitude + 0.001;
+	                    	var longi = result.listeJoueurs[i].position.longitude + 0.001;
 	                    	var newLatLng = new L.LatLng(lat, longi);
 	                    	users[idx].setLatLng(newLatLng);
 	                    	users[idx].addTo(myMap);
-	                    	users[idx].bindPopup("<b>" + result[0].listeJoueurs[i].id + "</b><br />").openPopup();
+	                    	users[idx].bindPopup("<b>" + result.listeJoueurs[i].id + "</b><br />").openPopup();
 	                    	
-	                    	mapUsers[idx].innerHTML = result[0].listeJoueurs[i].position.nom;
+	                    	mapUsers[idx].innerHTML = result.listeJoueurs[i].position.nom;
 	                    	idx++;
 	                    }
                 	}
@@ -488,24 +497,24 @@ function myCallback() {
                 
                 if (userCurrent != "inconnu") {
                 	var idx = 0;
-	                for (i = 0; i < result[0].listeJoueurs.length; i++) {
-	                    if (result[0].listeJoueurs[i].id == userCurrent) {
+	                for (i = 0; i < result.listeJoueurs.length; i++) {
+	                    if (result.listeJoueurs[i].id == userCurrent) {
 	                    	
 	                    	var userActifMaj = false;
-	                    	if (result[0].listeJoueurs[i].etat == "actif") {
+	                    	if (result.listeJoueurs[i].etat == "actif") {
 	                    		userActifMaj = true;
 	                    	}
 	                    	
 	                    	// Maj de la carte et position si changement d'état du Joueur.
 	                    	if (userActifMaj != userActif ) {
-	                    		// if (result[0].listeJoueurs[i].etat == "actif" && userActif == false) {
+	                    		// if (result.listeJoueurs[i].etat == "actif" && userActif == false) {
 	                            userActif = true;
 	                            
 	                            // affichage des commerces.
-	                            for (j = 0; j <  result[0].listeJoueurs[i].position.listeCommerces.length;j++) {
+	                            for (j = 0; j <  result.listeJoueurs[i].position.listeCommerces.length;j++) {
 	
-	                                var lat = result[0].listeJoueurs[i].position.listeCommerces[j].latitude;
-	                                var longit = result[0].listeJoueurs[i].position.listeCommerces[j].longitude;
+	                                var lat = result.listeJoueurs[i].position.listeCommerces[j].latitude;
+	                                var longit = result.listeJoueurs[i].position.listeCommerces[j].longitude;
 	
 	                                function onClick(e) {
 	                                    e.target.bindPopup("<b>" + e.target.id + "</b><br />").openPopup();
@@ -523,35 +532,35 @@ function myCallback() {
 	                                });
 
 	                                var marker = L.marker([lat,longit], {icon: greenIcon}).on('click', onClick);
-	                                marker.id =  result[0].listeJoueurs[i].position.listeCommerces[j].type;
+	                                marker.id =  result.listeJoueurs[i].position.listeCommerces[j].type;
 	                                marker.addTo(myMap);
 	                            }
-	                            var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
-	                            var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
+	                            var lat = result.listeJoueurs[i].position.latitude + 0.001;
+	                            var longi = result.listeJoueurs[i].position.longitude + 0.001;
 	                            var newLatLng = new L.LatLng(lat, longi);
 	                            user.setLatLng(newLatLng);
 	                            imgEtat.src = "cartes/FeuVert.jpg";
 	                            
-	                            markerCurrent.innerHTML = result[0].listeJoueurs[i].position.nom;
+	                            markerCurrent.innerHTML = result.listeJoueurs[i].position.nom;
         
-	                            loadCartesEnMainsUser(result[0].listeJoueurs[i].listeCartesEnMain);
+	                            loadCartesEnMainsUser(result.listeJoueurs[i].listeCartesEnMain);
 	                            
-	                            loadCartesExposees(cartesExposeesCurrent, result[0].listeJoueurs[i].listeCartesExposees);
+	                            loadCartesExposees(cartesExposeesCurrent, result.listeJoueurs[i].listeCartesExposees);
 	                        }
 		                    userActif = userActifMaj;
 		                    //break;
 	                    } else {
-                            var lat = result[0].listeJoueurs[i].position.latitude + 0.001;
-                            var longi = result[0].listeJoueurs[i].position.longitude + 0.001;
+                            var lat = result.listeJoueurs[i].position.latitude + 0.001;
+                            var longi = result.listeJoueurs[i].position.longitude + 0.001;
                             
                             var lstLatLn = users[idx].getLatLng();
                             if (lstLatLn.lat != lat || lstLatLn.lng != longi) {                            
                             	var newLatLng = new L.LatLng(lat, longi);
                             	users[idx].setLatLng(newLatLng);
-                            	mapUsers[idx].innerHTML = result[0].listeJoueurs[i].position.nom;
+                            	mapUsers[idx].innerHTML = result.listeJoueurs[i].position.nom;
                             }
                             
-                            loadCartesExposees(cartesExposees[idx], result[0].listeJoueurs[i].listeCartesExposees);
+                            loadCartesExposees(cartesExposees[idx], result.listeJoueurs[i].listeCartesExposees);
 	                    }
 	                }
 	                
@@ -568,7 +577,7 @@ function myCallback() {
         }
     };
 
-    xhttp.open('GET', 'api/parties', true);
+    xhttp.open('GET', 'api/parties/' + partieId, true);
     xhttp.send(null);
 }
 
