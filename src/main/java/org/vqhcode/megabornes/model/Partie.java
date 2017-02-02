@@ -18,13 +18,45 @@ public class Partie {
     private JeuCarte jeuCarte;
     private Circuit circuit;
     private boolean joueurPrecedentAyantJoue;
-
+    private int nbBornesAParcourrir;
+    private int nbJoueursMax;
+    private int partieId;
 
     public Partie() {
         listeJoueurs = new ArrayList<Joueur>();
         etat = EtatPartie.enAttenteJoueur;
         joueurPrecedentAyantJoue = false;
         indexJoueurCourant = 0;
+
+        // nb bornes à parcourrir par défaut
+        //nbBornesAParcourrir = 1024;
+
+        // nb joueurs MAX dans la partie
+        //nbJoueursMax = 3;
+    }
+
+    public int getPartieId() {
+        return partieId;
+    }
+
+    public void setPartieId(int partieId) {
+        this.partieId = partieId;
+    }
+
+    public int getNbBornesAParcourrir() {
+        return nbBornesAParcourrir;
+    }
+
+    public void setNbBornesAParcourrir(int nbBornesAParcourrir) {
+        this.nbBornesAParcourrir = nbBornesAParcourrir;
+    }
+
+    public int getNbJoueursMax() {
+        return nbJoueursMax;
+    }
+
+    public void setNbJoueursMax(int nbJoueursMax) {
+        this.nbJoueursMax = nbJoueursMax;
     }
 
     public void addJoueur(Joueur joueur) {
@@ -258,7 +290,7 @@ etat = EtatPartie.termine;
 
 
         StringBuilder msgOut = new StringBuilder();
-        msgOut.append("  > joueur [").append(jid).append("] joue la carte [").append(carte).append("] ").toString();
+        msgOut.append("  > Partie [" + partieId + "] joueur [").append(jid).append("] joue la carte [").append(carte).append("] ").toString();
         if (!"toto".equals(jidAdversaire)) {
             msgOut.append("  contre le joueur [").append(jidAdversaire).append("] ").toString();
         }
@@ -483,7 +515,7 @@ etat = EtatPartie.termine;
     private int calculAvancement(Joueur joueur, String valeur) {
         int nbBornes = Integer.valueOf(valeur);
         int resultat = 0;
-        if (joueur.getNbBornesParcourues() + nbBornes > 1024) {
+        if (joueur.getNbBornesParcourues() + nbBornes > nbBornesAParcourrir) {
              resultat = 1;
         }
         if (joueur.isCarteExposee("Limitation de vitesse") != null && nbBornes > 64) {
@@ -492,7 +524,11 @@ etat = EtatPartie.termine;
         joueur.setNbBornesParcourues(joueur.getNbBornesParcourues() + nbBornes);
         int indexPosition = joueur.getNbBornesParcourues() / 32;
         joueur.setPosition(circuit.getListePositions().get(indexPosition));
-        if (joueur.getNbBornesParcourues() == 1024) {
+        if (joueur.getNbBornesParcourues() == nbBornesAParcourrir) {
+
+            System.out.println("###########  WINNER  ###########");
+
+
             joueur.setEtat(EtatJoueur.winner);
             for (Joueur joueur2 :listeJoueurs
                  ) {

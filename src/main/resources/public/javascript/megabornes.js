@@ -458,7 +458,7 @@ function myCallback() {
                 var result = JSON.parse(jsText);
                 // console.log(result);
 
-                if (result[0] === null) {
+                if (result[0] == null) {
                 	return;
                 }
                 

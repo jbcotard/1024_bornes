@@ -25,14 +25,22 @@ import static spark.Spark.*;
  */
 public class Main {
 
+    public static final int PARTIE_NB_JOUEUR = 3;
+    public static final int NB_PARTIES = 1;
+    public static final int NB_BORNES = 1024;
+
     public static void main(String[] args) throws IOException {
 
-        // initialisation technique pour services web
+        // configuration
         Configuration configuration = Configuration.INSTANCE;
         ResponseTransformer encoder = object -> configuration.getGson().toJson(object);
+        configure(args, configuration);
+
+
+        // initialisation technique pour services web
         MegaBorne megaBorne = MegaBorne.INSTANCE;
         megaBorne.setListeJoueur(new ArrayList<Joueur>());
-        megaBorne.setPartie(null);
+        megaBorne.setListeParties(new ArrayList<Partie>());
 
 
         // Frontend
@@ -42,11 +50,11 @@ public class Main {
         Gson gson = new Gson();
         // FIX lecture ressource dans jar
         InputStream resourceCircuit = ClassLoader.getSystemResourceAsStream("circuitcomplet.json");
-        Position[] positions = gson.fromJson( new BufferedReader(new InputStreamReader(resourceCircuit)), Position[].class);
+        Position[] positions = gson.fromJson(new BufferedReader(new InputStreamReader(resourceCircuit)), Position[].class);
         //URL resourceCircuit = Main.class.getClassLoader().getResource("circuitcomplet.json");
         //Position[] positions = gson.fromJson(new FileReader(resourceCircuit.getPath()), Position[].class);
         megaBorne.setListePosition(Arrays.asList(positions));
-        
+
         // initialisation cartes
         // FIX lecture ressource dans jar
         InputStream resourceCartes = ClassLoader.getSystemResourceAsStream("cartes.json");
@@ -59,20 +67,31 @@ public class Main {
 
         // initialisation api joueurs
         JoueurRoute joueurRoute = new JoueurRoute();
-        get("/api/joueurs",joueurRoute::getJoueurs,encoder);
-        get("/api/joueurs/:jid",joueurRoute::getJoueur,encoder);
-        get("/api/joueurs/generate/",joueurRoute::genJoueur,encoder);
+        get("/api/joueurs", joueurRoute::getJoueurs, encoder);
+        get("/api/joueurs/:jid", joueurRoute::getJoueur, encoder);
+        get("/api/joueurs/generate/", joueurRoute::genJoueur, encoder);
 
         // initialisation api parties
         PartieRoute partieRoute = new PartieRoute();
-        get("/api/parties",partieRoute::getParties,encoder);
-        get("/api/parties/:pid",partieRoute::getPartie,encoder);
-        get("/api/parties/reset/",partieRoute::resetPartie,encoder);
-        get("/api/parties/inscrire/:jid",partieRoute::inscrireJoueur,encoder);
-        get("/api/parties/joueurs/",partieRoute::getJoueursInscrits,encoder);
-        get("/api/parties/joueurs/:jid",partieRoute::getJoueur,encoder);
-        get("/api/parties/joueurs/:jid/action/:idCarte/:defausse/:jidAdversaire", partieRoute::processActionJoueur,encoder);
+        get("/api/parties", partieRoute::getParties, encoder);
+        get("/api/parties/:pid", partieRoute::getPartie, encoder);
+        get("/api/parties/reset/", partieRoute::resetPartie, encoder);
+        get("/api/parties/inscrire/:jid", partieRoute::inscrireJoueur, encoder);
+        get("/api/parties/joueurs/", partieRoute::getJoueursInscrits, encoder);
+        get("/api/parties/joueurs/:jid", partieRoute::getJoueur, encoder);
+        get("/api/parties/joueurs/:jid/action/:idCarte/:defausse/:jidAdversaire", partieRoute::processActionJoueur, encoder);
         get("/api/parties/joueurs/:jid/pioche/:typeCommerce", partieRoute::processPioche, encoder);
+
+
+        // api v2 : mode multi parties
+        get("/apiv2/parties/:pid/reset/", partieRoute::resetPartie, encoder);
+        get("/apiv2/parties/:pid/inscrire/:jid", partieRoute::inscrireJoueur, encoder);
+        get("/apiv2/parties/:pid/joueurs/", partieRoute::getJoueursInscrits, encoder);
+        get("/apiv2/parties/:pid/joueurs/:jid", partieRoute::getJoueur, encoder);
+        get("/apiv2/parties/:pid/joueurs/:jid/action/:idCarte/:defausse/:jidAdversaire", partieRoute::processActionJoueur, encoder);
+        get("/apiv2/parties/:pid/joueurs/:jid/pioche/:typeCommerce", partieRoute::processPioche, encoder);
+
+
 
         // CORS
         options("/*", (request, response) -> "");
@@ -83,6 +102,33 @@ public class Main {
             response.header("Access-Control-Allow-Credentials", "true");
         });
 
+    }
+
+    private static void configure(String[] args, Configuration configuration) {
+        // si 3 arguments sont renseignés
+        // alors il s'agit du format : <nb parties> <nb joueurs> <nb bornes>
+        if (args != null && args.length == 3) {
+            //nbParties = args[0];
+            try {
+                configuration.setNbParties(Integer.valueOf(args[0]));
+                //nbJoueurs = args[1];
+                configuration.setNbJoueurs(Integer.valueOf(args[1]));
+                //nbBornes = args[2];
+                configuration.setNbBornes(Integer.valueOf(args[2]));
+            } catch (NumberFormatException e) {
+
+
+            }
+        }
+        // Par défaut
+        configuration.setNbParties(configuration.getNbParties() == null || configuration.getNbParties() == 0 ? NB_PARTIES : configuration.getNbParties());
+        configuration.setNbJoueurs(configuration.getNbJoueurs() == null || configuration.getNbJoueurs() == 0 ? PARTIE_NB_JOUEUR : configuration.getNbJoueurs());
+        configuration.setNbBornes(configuration.getNbBornes() == null || configuration.getNbBornes() == 0 ? NB_BORNES : configuration.getNbBornes());
+
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("++ configuration Moteur : \n\tnb Parties simultanées [" + configuration.getNbParties() + "], \n\tnb joueurs max par partie [" + configuration.getNbJoueurs() + "], \n\tnb bornes to win [" + configuration.getNbBornes() + "]");
+
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
     private void initDataPagesJaunes() {
