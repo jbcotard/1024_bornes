@@ -68,7 +68,7 @@ public enum MegaBorne {
         boolean partieDisponibleNonTrouve = true;
         Partie partieTrouve = null;
         if (listeParties.size() > 0) {
-            while (partieDisponibleNonTrouve) {
+            while (partieDisponibleNonTrouve && i < listeParties.size()) {
                 if (listeParties.get(i).getListeJoueurs().size() < Configuration.INSTANCE.getNbJoueurs()) {
                     partieTrouve = listeParties.get(i);
                     partieDisponibleNonTrouve = false;
