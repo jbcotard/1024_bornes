@@ -41,7 +41,8 @@ public class PartieRoute {
 
         // si elle n'existe pas et que le nombre de parties n'a pas atteint le max,
         // on en crée une nouvelle
-        if (partie == null && MegaBorne.INSTANCE.getListeParties().size() < Configuration.INSTANCE.getNbParties()) {
+        if (partie == null
+                && MegaBorne.INSTANCE.getListeParties().size() < Configuration.INSTANCE.getNbParties()) {
             partie = new Partie();
             partie.setPartieId(MegaBorne.INSTANCE.getListeParties().size());
 
@@ -60,7 +61,9 @@ public class PartieRoute {
             MegaBorne.INSTANCE.addPartie(partie);
 
             System.out.println("Création de la partie [" + partie.getPartieId() + "]" );
-        } else if (partie != null) {
+        }
+
+        if (partie != null) {
 
             Joueur joueur1 = new Joueur(jid, jid);
             //System.out.println(joueur1);
@@ -78,7 +81,7 @@ public class PartieRoute {
             if (!partie.isEnCours()
                     && partie.getListeJoueurs().size() == Configuration.INSTANCE.getNbJoueurs()) {
                 partie.getListeJoueurs().forEach(joueur -> joueur.setEtat(EtatJoueur.inactif));
-                System.out.println("Start de la partie [" + 1 + "]");
+                System.out.println("Start de la partie [" + partie.getPartieId() + "]");
                 partie.start();
                 System.out.println("Tour du joueur [" + partie.getJoueurCourant().getId() + "]");
             }
