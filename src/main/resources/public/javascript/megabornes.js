@@ -69,6 +69,9 @@ var cartesExposees = [cartesExposees0, cartesExposees1];
 
 var partieId = 0;
 
+
+var gagne = 0;
+
 var options = {
     vehicle: L.Mappy.Vehicles.comcar,
     cost: "length", // or "time" or "price"
@@ -499,12 +502,18 @@ function myCallback() {
                 	var idx = 0;
 	                for (i = 0; i < result.listeJoueurs.length; i++) {
 	                    if (result.listeJoueurs[i].id == userCurrent) {
-	                    	
+
+                            if (result.listeJoueurs[i].etat == "winner" && gagne == 0) {
+                                window.alert("Vous avez gagné!");
+                                gagne = 1;
+                                break;
+                            }
+
 	                    	var userActifMaj = false;
 	                    	if (result.listeJoueurs[i].etat == "actif") {
 	                    		userActifMaj = true;
 	                    	}
-	                    	
+
 	                    	// Maj de la carte et position si changement d'état du Joueur.
 	                    	if (userActifMaj != userActif ) {
 	                    		// if (result.listeJoueurs[i].etat == "actif" && userActif == false) {
@@ -597,7 +606,12 @@ function displayEtatJeu(etat) {
 		etatPartie = etatPartieEnum.enCours;
 		break;
 	case "termine":
-		imgEtat.src = "cartes/FeuRouge.jpg";
+        if (gagne == 1) {
+            imgEtat.src = "images/lol-icon.png";
+        } else {
+            imgEtat.src = "images/crying-icon.png";
+        }
+
 		etatPartie = etatPartieEnum.termine;
 		break;
 	default:
