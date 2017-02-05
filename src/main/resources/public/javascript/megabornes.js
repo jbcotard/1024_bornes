@@ -69,6 +69,8 @@ var cartesExposees = [cartesExposees0, cartesExposees1];
 
 var partieId = 0;
 
+// Le dernier utilisateur courant dans la boucle.
+var lastIndexJoueurCourant = -1;
 
 var gagne = 0;
 
@@ -297,7 +299,7 @@ function setImage(image, valeur) {
 function action(id, etat, user) {
 	
 	if (!userActif) {
-		window.Alert("Le joueur n'est pas actif!");
+		window.alert("Le joueur n'est pas actif!");
 		return;
 	}
 	var xhttp = new XMLHttpRequest();
@@ -462,8 +464,7 @@ function myCallback() {
         if (this.readyState == 4 && this.status == 200) {
             try {
                 var jsText = xhttp.responseText;
-                
-                
+                                
                 if (jsText == "null") {
                 	return;
                 }
@@ -475,8 +476,13 @@ function myCallback() {
                 }
                 
                 var etatPartieOld = etatPartie;
-                 
+
                 displayEtatJeu(result.etat);
+                console.log("lastIndexJoueurCourant: " + lastIndexJoueurCourant +
+                		" result.indexJoueurCourant :"  + result.indexJoueurCourant
+                		+ " etatPartie: " + etatPartie
+                		+ " etatPartieOld: " + etatPartieOld
+                		+ " result.etat: " + result.etat);
                 
                 if (etatPartie != etatPartieOld && etatPartieEnum.enCours == etatPartie) {
                 	var idx = 0;
@@ -553,7 +559,6 @@ function myCallback() {
 	                            markerCurrent.innerHTML = result.listeJoueurs[i].position.nom;
         
 	                            loadCartesEnMainsUser(result.listeJoueurs[i].listeCartesEnMain);
-	                            
 	                            loadCartesExposees(cartesExposeesCurrent, result.listeJoueurs[i].listeCartesExposees);
 	                        }
 		                    userActif = userActifMaj;
@@ -568,11 +573,13 @@ function myCallback() {
                             	users[idx].setLatLng(newLatLng);
                             	mapUsers[idx].innerHTML = result.listeJoueurs[i].position.nom;
                             }
-                            
-                            loadCartesExposees(cartesExposees[idx], result.listeJoueurs[i].listeCartesExposees);
+                            if (lastIndexJoueurCourant != result.indexJoueurCourant) {
+                            	loadCartesExposees(cartesExposees[idx], result.listeJoueurs[i].listeCartesExposees);
+                            }
 	                    }
 	                }
-	                
+	                lastIndexJoueurCourant = result.indexJoueurCourant;
+                    
 	                // Une partie en cours mais l'utilisateur est inactif (En attente).
 	                if (etatPartie == etatPartieEnum.enCours && userActif != true) {
 	                	imgEtat.src = "cartes/waiting.png";
