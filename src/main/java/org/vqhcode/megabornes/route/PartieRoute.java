@@ -25,7 +25,10 @@ public class PartieRoute {
 
     public Partie getPartie(Request request, Response response) {
         String pid = request.params("pid");
-        Partie partie = MegaBorne.INSTANCE.getListeParties().get(Integer.parseInt(pid));
+        Partie partie = null;
+        if (MegaBorne.INSTANCE.getListeParties().size() >= Integer.parseInt(pid) ) {
+            partie = MegaBorne.INSTANCE.getListeParties().get(Integer.parseInt(pid));
+        }
         return partie;
     }
 
@@ -98,7 +101,12 @@ public class PartieRoute {
             pid = "0";
         }
 
-        return MegaBorne.INSTANCE.getListeParties().get(Integer.parseInt(pid)).getListeJoueurs();
+        List<Joueur> listeJoueurs  = new ArrayList<Joueur>();
+        if (MegaBorne.INSTANCE.getListeParties().size() >= Integer.parseInt(pid) ) {
+            listeJoueurs = MegaBorne.INSTANCE.getListeParties().get(Integer.parseInt(pid)).getListeJoueurs();
+        }
+
+        return listeJoueurs;
     }
 
     public Joueur getJoueur(Request request, Response response) {
@@ -109,9 +117,16 @@ public class PartieRoute {
         if (pid == null) {
             pid = "0";
         }
-        return MegaBorne.INSTANCE.getListeParties().get(Integer.parseInt(pid)).getListeJoueurs().stream().collect(HashMap<String, Joueur>::new, (m, c) -> m.put(c.getId(), c),
-                (m, u) -> {
-                }).get(jid);
+
+        Joueur joueur = null;
+        if (MegaBorne.INSTANCE.getListeParties().size() >= Integer.parseInt(pid) ) {
+
+            joueur = MegaBorne.INSTANCE.getListeParties().get(Integer.parseInt(pid)).getListeJoueurs().stream().collect(HashMap<String, Joueur>::new, (m, c) -> m.put(c.getId(), c),
+                    (m, u) -> {
+                    }).get(jid);
+        }
+
+        return joueur;
     }
 
     public String resetPartie(Request request, Response response) {
